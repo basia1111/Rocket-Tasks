@@ -13,8 +13,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { title, note, dueDate } = req.body;
-    const task = new Task({ title, note, dueDate, status: false });
+    const { title, dueDate } = req.body;
+    const task = new Task({ title, dueDate, status: false });
 
     try {
         const savedTask = await task.save();
@@ -28,7 +28,7 @@ router.put('/:id', validateTask, async (req, res) => {
     const { title, note, dueDate } = req.body;
 
     try {
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, { title, note, dueDate }, { new: true, runValidators: true });
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, { title, dueDate }, { new: true, runValidators: true });
         return res.status(200).json(updatedTask);
     } catch (err) {
         return res.status(500).json({ message: err.message });
@@ -55,20 +55,5 @@ router.put('/status/:id', validateTask, async (req, res) => {
         return res.status(500).json({ message: err.message });
     }
 });
-
-module.exports = router;
-
-
-router.put('/status/:id', validateTask, async(req, res) => {
-    const {id} = req.params
-
-    try {
-        const task =  await Task.findById(id)
-        const updatedTask =  await Task.findByIdAndUpdate(id, {status: !task.status},  { new: true, runValidators: true })
-        return res.status(200).json(updatedTask);
-    } catch(err) {
-        return res.status(500).json({message: err.message});
-    }
-})
 
 module.exports = router; 

@@ -1,24 +1,13 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
+import { TaskContextProvider } from './contexts/TaskContext';
+import TaskList from './components/TaskList'
 
 function App() {
-  const [message, setMessage] = useState('')
-
-  const fetchMessage = async () => {
-    try{
-      const response = await axios.get('http://localhost:3000/api')
-      setMessage(m => response.data.message)
-    } catch(err) {
-      setMessage(m => 'error')
-    }
-  }
-
-  useEffect(() => {
-    fetchMessage()
-  }, [])
 
   return (
-    <h1>{message}</h1>
+    <TaskContextProvider>
+     <TaskList />
+    </TaskContextProvider>
   )
 }
 
