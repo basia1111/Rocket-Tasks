@@ -12,7 +12,6 @@ export const TaskContextProvider = ({ children }) => {
         try {
             const response = await axios.get('/');
             setTasks(response.data);
-            console.log(response.data);
         } catch (err) {
             console.error('Failed to fetch tasks:', err.message);
         }
@@ -21,7 +20,7 @@ export const TaskContextProvider = ({ children }) => {
     const toggleStatus = async (id) => {
         try {
             await axios.put(`/status/${id}`);
-            console.log('Status changed');
+
             setTasks(prevTasks =>
                 prevTasks.map(task =>
                     task._id === id ? { ...task, status: !task.status } : task
@@ -35,6 +34,7 @@ export const TaskContextProvider = ({ children }) => {
     const deleteTask = async (id) => {
         try {
             await axios.delete(`/${id}`);
+        
             setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
             console.log('Task deleted');
         } catch (err) {
@@ -42,12 +42,38 @@ export const TaskContextProvider = ({ children }) => {
         }
     };
 
+    const addTask = async (task) => {
+        try {
+            const response = await axios.post('/', task);
+            
+            setTasks(prevTasks => [...prevTasks, response.data] )
+            console.log('Task added');
+        } catch {
+            console.error('Task could not be added:', err);
+        }
+
+    }
+
+    const editTask = async (id, updatedTask) => {
+        try {
+            const response = await axios.put(`/${id}`, updatedTask);
+
+            setTasks((prevTasks) =>
+                prevTasks.map((task) => (task._id === id ? response.data : task))
+            );
+            console.log('Task updated');
+        } catch (err) {
+            console.error("Error updating task:", err);
+        }
+    };
+    
+
     useEffect(() => {
         getTasks();
     }, []);
 
     return (
-        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask }}>
+        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask }}>
             {children}
         </TaskContext.Provider>
     );
