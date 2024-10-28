@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=PT+Sans+Narrow:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.line-through {
+    text-decoration: line-through;
+    text-decoration-color: black; /* Color of the line-through when active */
+    transition: text-decoration-color 0.2s ease-in-out; /* Duration for the line-through effect */
+}
+
+.decoration-transparent {
+    text-decoration: line-through;
+    text-decoration-color: transparent; /* Color of the line-through when inactive */
+    transition: text-decoration-color 0.2s ease-in-out; /* Quick transition when going back to transparent */
+}
