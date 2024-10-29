@@ -10,7 +10,7 @@ export default {
         'black': '#0c0916',
         'navy':'#1a1734',
         'light-navy':'#26224c', 
-        'green':'#49e9c3',
+        'green':'#02edaf',
         'coral':'#fd0046',
         'yellow':"#ff9e00",
         'light-yellow': "#fcf3e5"

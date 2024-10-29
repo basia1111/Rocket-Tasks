@@ -5,6 +5,7 @@ export const TaskContext = createContext();
 
 export const TaskContextProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
+    const [modifiedTask, setModifiedTask] = useState(null)
     
     axios.defaults.baseURL = 'http://localhost:3000/tasks';
 
@@ -61,6 +62,7 @@ export const TaskContextProvider = ({ children }) => {
             setTasks((prevTasks) =>
                 prevTasks.map((task) => (task._id === id ? response.data : task))
             );
+            setModifiedTask(response.data._id)
             console.log('Task updated');
         } catch (err) {
             console.error("Error updating task:", err);
@@ -73,7 +75,7 @@ export const TaskContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask }}>
+        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask, modifiedTask }}>
             {children}
         </TaskContext.Provider>
     );

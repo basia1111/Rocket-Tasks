@@ -6,14 +6,14 @@ import { IoCalendarNumberOutline, IoCheckmarkCircle, IoEllipseOutline, IoTrashBi
 import TaskForm from './TaskForm';
 
 function Task({ task }) {
-    const { toggleStatus, deleteTask } = useContext(TaskContext);
+    const { toggleStatus, deleteTask, modifiedTask } = useContext(TaskContext);
     const { title, _id, dueDate, status } = task;
     const [isEditing, setIsEditing] = useState(false);
 
     return (
         <div 
-            className={`w-full flex justify-between items-center py-3 px-4 transition-all duration-300 border-b-[1px] border-gray-200
-            ${isEditing ? 'bg-gray-50' : 'bg-white'}`}
+            className={`w-full flex justify-between items-center py-3 md:px-4 px-2 transition-all duration-300 border-b-[1px] border-gray-200
+            ${isEditing ? 'bg-gray-50' : 'bg-white'} ${modifiedTask == task._id ? 'pulse-once' : ''}`}
         >
             <div className="flex items-center gap-4">
                 {status ? (

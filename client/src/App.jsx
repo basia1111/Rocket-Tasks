@@ -2,7 +2,7 @@ import React from 'react';
 import { TaskContextProvider } from './contexts/TaskContext';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
-import SideForms from './components/SideForms';
+import ActionSidebar from './components/ActionSidebar';
 
 function App() {
     return (

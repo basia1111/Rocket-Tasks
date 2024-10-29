@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { TaskContext } from '../contexts/TaskContext';
 import { IoAddCircleOutline } from "react-icons/io5";
 
-function TaskForm({ editMode, id, onCancel, title, dueDate }) {
+function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
     const { addTask, editTask } = useContext(TaskContext);
 
     const [formTitle, setFormTitle] = useState(editMode ? title : '');
@@ -26,7 +26,7 @@ function TaskForm({ editMode, id, onCancel, title, dueDate }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className={`flex font-PTSans w-full  gap-4 ${editMode ? "flex-row" : "flex-col"}`}> 
+        <form onSubmit={handleSubmit} className={`flex font-PTSans w-full  gap-4 ${editMode ? "md:flex-row flex-col" : "flex-col"}`}> 
             <input 
                 type="text"
                 id="title"
@@ -49,6 +49,7 @@ function TaskForm({ editMode, id, onCancel, title, dueDate }) {
             />
             <button
                 type="submit"
+                onClick={close&&formTitle&&!editMode? close : ''}
                 className="bg-green text-white font-semibold py-2 px-4 rounded-md hover:bg-green-dark transition-colors duration-200"
             >
                 {editMode ? 'Save' : 'Create Task'}
