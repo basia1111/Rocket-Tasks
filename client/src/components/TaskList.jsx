@@ -13,21 +13,22 @@ function TaskList() {
     });
 
     return (
-        <div className="task-list-container flex flex-col md:w-4/6  w-full md:p-10 p4">
+        <div className="relative flex flex-col md:w-4/6  w-full md:p-10 p4">
   
-            <h1 className="task-list-title text-4xl font-Montserrat font-bold text-navy pb-2">
+            <h1 className="text-4xl font-Montserrat font-bold text-navy pb-2">
                 Tasks
             </h1>  
 
-            <p className="task-list-date text-l font-Montserrat font-normal text-navy md:pb-8 pb-4">
+            <p className="text-l font-Montserrat font-normal text-navy md:pb-8 pb-4">
                 {formattedDate}
             </p>
 
-            <div className="task-list font-PTSans flex flex-col h-full overflow-y-scroll md:pb-0 pb-16">
+            <div className="font-PTSans flex flex-col h-full overflow-y-scroll md:pb-6 pb-16">
                 {tasks.map(task => (
                     <Task key={task._id} task={task} />
                 ))}
             </div>
+            <div className="absolute bottom-[-1px] left-0 right-0 md:h-24 h-14 bg-gradient-to-b  from-transparent via-white to-white pointer-events-none"></div>
         </div>
     );
 }
