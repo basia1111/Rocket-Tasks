@@ -1,63 +1,107 @@
 const Task = require('../models/task');
+const User = require('../models/user');
 
+/**
+ * Helper function to find task and verify ownership
+ */
+const findTaskByIdAndCheckOwnership = async (taskId, userId) => {
+    const task = await Task.findById(taskId);
+    if (!task) throw new Error('Task not found');
+    if (task.user.toString() !== userId) throw new Error("That's not your task");
+    return task;
+};
+
+/**
+ * @desc    Retrieve all tasks for a specific user
+ * @route   GET /tasks
+ * @access  Private
+ */
 const getAllTasks = async (req, res) => {
     try {
-        const tasks = await Task.find();
-        return res.status(200).json(tasks);
+        const tasks = await Task.find({ user: req.user.id });
+        res.status(200).json(tasks);
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
 };
 
+/**
+ * @desc    Create a new task
+ * @route   POST /tasks
+ * @access  Private
+ */
 const createTask = async (req, res) => {
     const { title, dueDate } = req.body;
-    const task = new Task({ title, dueDate, status: false });
+    const task = new Task({ title, dueDate, user: req.user.id, status: false });
 
     try {
         const savedTask = await task.save();
-        return res.status(201).json(savedTask);
+        res.status(201).json(savedTask);
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
 };
 
+/**
+ * @desc    Update a task by ID
+ * @route   PUT /tasks/:id
+ * @access  Private
+ */
 const updateTask = async (req, res) => {
     const { title, dueDate } = req.body;
+    const { id } = req.params;
 
     try {
+        await findTaskByIdAndCheckOwnership(id, req.user.id);
+
         const updatedTask = await Task.findByIdAndUpdate(
-            req.params.id,
+            id,
             { title, dueDate },
             { new: true, runValidators: true }
         );
-        return res.status(200).json(updatedTask);
+        res.status(200).json(updatedTask);
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        res.status(err.message === "That's not your task" ? 401 : 500).json({ message: err.message });
     }
 };
 
+/**
+ * @desc    Delete a task by ID
+ * @route   DELETE /tasks/:id
+ * @access  Private
+ */
 const deleteTask = async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const deletedTask = await Task.findByIdAndDelete(req.params.id);
-        return res.status(200).json(deletedTask);
+        await findTaskByIdAndCheckOwnership(id, req.user.id);
+        
+        const deletedTask = await Task.findByIdAndDelete(id);
+        res.status(200).json(deletedTask);
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        res.status(err.message === "That's not your task" ? 401 : 500).json({ message: err.message });
     }
 };
 
+/**
+ * @desc    Toggle the status of a task by ID
+ * @route   PUT /tasks/status/:id
+ * @access  Private
+ */
 const toggleTaskStatus = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const task = await Task.findById(id);
+        const task = await findTaskByIdAndCheckOwnership(id, req.user.id);
+
         const updatedTask = await Task.findByIdAndUpdate(
             id,
             { status: !task.status },
             { new: true, runValidators: true }
         );
-        return res.status(200).json(updatedTask);
+        res.status(200).json(updatedTask);
     } catch (err) {
-        return res.status(500).json({ message: err.message });
+        res.status(err.message === "That's not your task" ? 401 : 500).json({ message: err.message });
     }
 };
 

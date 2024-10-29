@@ -7,18 +7,19 @@ const {
     deleteTask,
     toggleTaskStatus
 } = require('../controllers/taskControler');
-const validateTaskId = require('../middleware/validateTaskId');
+const validateId = require('../middleware/validateId');
 const validateTaskData = require('../middleware/validateTaskData');
+const checkIfTaskExists = require('../middleware/checkIfTaskExists');
+const protect = require('../middleware/auth')
 
+router.get('/', protect, getAllTasks);
 
-router.get('/', getAllTasks);
+router.post('/', protect, validateTaskData, createTask);
 
-router.post('/', validateTaskData, createTask);
+router.put('/:id', protect, validateId, checkIfTaskExists, validateTaskData, updateTask);
 
-router.put('/:id', validateTaskId, validateTaskData, updateTask);
+router.delete('/:id', protect, validateId, checkIfTaskExists, deleteTask);
 
-router.delete('/:id', validateTaskId, deleteTask);
-
-router.put('/status/:id', validateTaskId, toggleTaskStatus);
+router.put('/status/:id', protect, validateId, checkIfTaskExists, toggleTaskStatus);
 
 module.exports = router;
