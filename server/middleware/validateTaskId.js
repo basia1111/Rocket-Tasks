@@ -1,7 +1,7 @@
 const Task = require('../models/task');
 const mongoose = require('mongoose');
 
-const validateTask = async (req, res, next) => {
+const validateTaskId = async (req, res, next) => {
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -19,4 +19,4 @@ const validateTask = async (req, res, next) => {
     }
 };
 
-module.exports = validateTask;
+module.exports = validateTaskId;

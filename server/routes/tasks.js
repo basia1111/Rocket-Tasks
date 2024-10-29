@@ -1,59 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/task'); 
-const validateTask = require('../middleware/validateTask');
+const {
+    getAllTasks,
+    createTask,
+    updateTask,
+    deleteTask,
+    toggleTaskStatus
+} = require('../controllers/taskControler');
+const validateTaskId = require('../middleware/validateTaskId');
+const validateTaskData = require('../middleware/validateTaskData');
 
-router.get('/', async (req, res) => {
-    try {
-        const tasks = await Task.find();
-        return res.status(200).json(tasks); 
-    } catch (err) {
-        return res.status(500).json({ message: err.message }); 
-    }
-});
 
-router.post('/', async (req, res) => {
-    const { title, dueDate } = req.body;
-    const task = new Task({ title, dueDate, status: false });
+router.get('/', getAllTasks);
 
-    try {
-        const savedTask = await task.save();
-        return res.status(201).json(savedTask); 
-    } catch (err) {
-        return res.status(500).json({ message: err.message }); 
-    }
-});
+router.post('/', validateTaskData, createTask);
 
-router.put('/:id', validateTask, async (req, res) => {
-    const { title, note, dueDate } = req.body;
+router.put('/:id', validateTaskId, validateTaskData, updateTask);
 
-    try {
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, { title, dueDate }, { new: true, runValidators: true });
-        return res.status(200).json(updatedTask);
-    } catch (err) {
-        return res.status(500).json({ message: err.message });
-    }
-});
+router.delete('/:id', validateTaskId, deleteTask);
 
-router.delete('/:id', validateTask, async (req, res) => {
-    try {
-        const deletedTask = await Task.findByIdAndDelete(req.params.id);
-        return res.status(200).json(deletedTask);
-    } catch (err) {
-        return res.status(500).json({ message: err.message });
-    }
-});
+router.put('/status/:id', validateTaskId, toggleTaskStatus);
 
-router.put('/status/:id', validateTask, async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const task = await Task.findById(id);
-        const updatedTask = await Task.findByIdAndUpdate(id, { status: !task.status }, { new: true, runValidators: true });
-        return res.status(200).json(updatedTask);
-    } catch (err) {
-        return res.status(500).json({ message: err.message });
-    }
-});
-
-module.exports = router; 
+module.exports = router;
