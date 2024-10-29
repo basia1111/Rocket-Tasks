@@ -38,8 +38,8 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
                 placeholder="Enter task title..."
             />
             <input
-                laceholder="Due Date"
-                nFocus={(e) => e.target.type = 'date'}
+                placeholder="Due Date"
+                onFocus={(e) => e.target.type = 'date'}
                 onBlur={(e) => e.target.type = e.target.value ? 'date' : 'text'}
                 id="dueDate"
                 name="dueDate"
