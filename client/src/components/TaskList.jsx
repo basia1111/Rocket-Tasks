@@ -13,7 +13,7 @@ function TaskList() {
     });
 
     return (
-        <div className="task-list-container flex flex-col w-4/6 p-10">
+        <div className="task-list-container flex flex-col md:w-4/6  w-full p-10">
   
             <h1 className="task-list-title text-4xl font-Montserrat font-bold text-navy pb-2">
                 Tasks

@@ -29,7 +29,6 @@ function Task({ task }) {
                         size={24}
                     />
                 )}
-
                 {isEditing ? (
                     <TaskForm 
                         editMode={true} 
@@ -45,8 +44,8 @@ function Task({ task }) {
                         </p>
                         {dueDate && (
                             <div className="flex items-center gap-1 text-xs text-yellow bg-light-yellow py-1 px-2 rounded-full ">
-                                 <IoCalendarNumberOutline className="text-xs text-yellow" />
-                                 {new Date(dueDate).toLocaleDateString("en-US", {
+                                <IoCalendarNumberOutline className="text-xs text-yellow" />
+                                {new Date(dueDate).toLocaleDateString("en-US", {
                                     weekday: "long",  
                                     month: "long", 
                                     day: "numeric",
