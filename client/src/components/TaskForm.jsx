@@ -13,7 +13,10 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        const newTask = { title: formTitle, dueDate: formDate };
+        const newTask = { 
+            title: formTitle, 
+            dueDate: formDate 
+        };
 
         if (editMode && id) {
             editTask(id, newTask);
