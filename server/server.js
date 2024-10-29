@@ -8,8 +8,8 @@ require('dotenv').config()
 
 app.use(express.json())
 app.use(cors())
-app.use('/tasks', tasksRouter )
-app.use('/users', usersRouter )
+app.use('/api/tasks', tasksRouter )
+app.use('/api/users', usersRouter )
 
 app.get('/api', (req, res) => {
     res.status(200).json({message: 'connected to backend'})

@@ -7,7 +7,7 @@ export const TaskContextProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
     const [modifiedTask, setModifiedTask] = useState(null)
     
-    axios.defaults.baseURL = 'http://localhost:3000/tasks';
+    axios.defaults.baseURL = 'http://localhost:3000/api/tasks';
 
     const getTasks = async () => {
         try {
