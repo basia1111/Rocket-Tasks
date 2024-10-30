@@ -7,8 +7,28 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
 
     const [formTitle, setFormTitle] = useState(editMode ? title : '');
     const [formDate, setFormDate] = useState(editMode && dueDate ? new Date(dueDate).toISOString().split("T")[0] : '');
+    const[error, setError] = useState(null)
     const handleTitleChange = (event) => setFormTitle(event.target.value);
     const handleDateChange = (event) => setFormDate(event.target.value);
+
+    const handleUpdate = async(id, newTask) => {
+        setError(null);
+        try {
+            await editTask(id, newTask);
+            onCancel();
+        } catch(error) {
+            setError(error.message);
+        }
+    }
+
+    const handleCreate = async(newTask) => {
+        setError(null);
+        try {
+            await addTask(newTask);
+        } catch (error) {
+            setError(error.message);
+        }
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -17,12 +37,11 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
             title: formTitle, 
             dueDate: formDate 
         };
-
+ 
         if (editMode && id) {
-            editTask(id, newTask);
-            onCancel();  
+            handleUpdate(id, newTask);
         } else {
-            addTask(newTask); 
+            handleCreate(newTask); 
         }
 
         event.target.reset();
@@ -36,7 +55,6 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
                 name="title"
                 value={formTitle}
                 onChange={handleTitleChange}
-                required
                 className="w-full py-2 px-4 border-b-[1px] border-gray-300 bg-transparent focus:outline-none transition-all duration-200"
                 placeholder="Enter task title..."
             />
@@ -57,6 +75,8 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
             >
                 {editMode ? 'Save' : 'Create Task'}
             </button>
+
+            {error && <div>{error}</div>}
         </form>
     );
 }

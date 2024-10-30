@@ -43,6 +43,10 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
+    if(!email || !password){
+        return res.status(400).json({ message: 'Please fill all fields' });
+    }
+
     try {
         const user = await User.findOne({ email });
 
@@ -57,21 +61,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-/**
- * @desc    Get current user details
- * @route   GET /users/me
- * @access  Private
- */
-const getUser = async (req, res) => {
-    try {
-        res.status(200).json(req.user || { message: "User wasn't found" });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 module.exports = {
     registerUser,
-    loginUser,
-    getUser,
+    loginUser
 };

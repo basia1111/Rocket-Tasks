@@ -26,8 +26,9 @@ export const TaskContextProvider = ({ children }) => {
         try {
             const response = await axiosInstance.get('/');
             setTasks(response.data);
-        } catch (err) {
-            console.error('Failed to fetch tasks:', err.message);
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Failed to fetch tasks';
+            throw new Error(errorMessage);
         }
     };
 
@@ -40,8 +41,9 @@ export const TaskContextProvider = ({ children }) => {
                     task._id === id ? { ...task, status: !task.status } : task
                 )
             );
-        } catch (err) {
-            console.error('Status did not change:', err);
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Failed to change status of task';
+            throw new Error(errorMessage);
         }
     };
 
@@ -51,19 +53,19 @@ export const TaskContextProvider = ({ children }) => {
         
             setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
             console.log('Task deleted');
-        } catch (err) {
-            console.error('Task could not be deleted:', err);
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Task could not be deleted';
+            throw new Error(errorMessage);
         }
     };
 
     const addTask = async (task) => {
         try {
             const response = await axiosInstance.post('/', task);
-            
             setTasks(prevTasks => [...prevTasks, response.data] )
-            console.log('Task added');
-        } catch {
-            console.error('Task could not be added:', err);
+        } catch(error) {
+            const errorMessage = error.response?.data?.message || 'Task could not be added';
+            throw new Error(errorMessage);
         }
 
     }
@@ -71,14 +73,13 @@ export const TaskContextProvider = ({ children }) => {
     const editTask = async (id, updatedTask) => {
         try {
             const response = await axiosInstance.put(`/${id}`, updatedTask);
-
             setTasks((prevTasks) =>
                 prevTasks.map((task) => (task._id === id ? response.data : task))
             );
             setModifiedTask(response.data._id)
-            console.log('Task updated');
-        } catch (err) {
-            console.error("Error updating task:", err);
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Task could not be added';
+            throw new Error(errorMessage);
         }
     };
     

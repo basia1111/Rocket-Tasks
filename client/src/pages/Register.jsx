@@ -3,15 +3,15 @@ import { useContext } from "react"
 import { AuthContext } from '../contexts/AuthContext'
 
 function Register (){
-
     const { register } = useContext(AuthContext)
-
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         checkPassword: ""
     })
+    const [error, setError] = useState(null)
+
 
     const handleChange = (event) => {
         setFormData(previus =>({
@@ -24,12 +24,15 @@ function Register (){
         event.preventDefault();
 
         const { name, email, password, checkPassword} = formData
+        setError(null);
         if(password == checkPassword){
             try {
                 await register( name, email, password)
-            } catch{  
-                console.log('register error')
+            } catch (error) {  
+                setError(error.message);
             }
+        } else {
+            setError('passwards should match')
         }
     }
 
@@ -60,6 +63,7 @@ function Register (){
                 />
                 
                 <button type="submit" className="w-full"> Register </button>
+                {error && <div className="error-message">{error}</div>}
             </form>
         </>
     )

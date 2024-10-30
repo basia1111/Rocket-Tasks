@@ -30,17 +30,18 @@ export const AuthContextProvider = ({ children }) => {
             const response = await axios.post('/login', { email, password });
             persistUser(response)   
         } catch (error) {
-            console.error('Login failed:', error.response?.data?.message || error.message);
+            const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
+            throw new Error(errorMessage);
         }
     };
 
     const register = async (name, email, password) => {
         try {
-            console.log('context sends request')
             const response = await axios.post('/register', { name, email, password });
             persistUser(response)   
         } catch (error) {
-            console.error('Register failed:', error.response?.data?.message || error.message);
+            const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+            throw new Error(errorMessage);
         }
     };
 

@@ -9,6 +9,24 @@ function Task({ task }) {
     const { toggleStatus, deleteTask, modifiedTask } = useContext(TaskContext);
     const { title, _id, dueDate, status } = task;
     const [isEditing, setIsEditing] = useState(false);
+    const [error, setError] = useState(null)
+
+    const handleDelete = async (id) => {
+        setError(null);
+        try {
+            await deleteTask(id)
+        } catch(error) {
+            setError(error.message)
+        }
+    }
+    const handleChangeStatus = async (id) => {
+        setError(null);
+         try {
+            await toggleStatus(id)
+        } catch(error) {
+            setError(error.message)
+        }
+    }
 
     return (
         <div 
@@ -18,13 +36,13 @@ function Task({ task }) {
             <div className="flex items-center gap-4">
                 {status ? (
                     <IoCheckmarkCircle 
-                        onClick={() => toggleStatus(_id)} 
+                        onClick={() => handleChangeStatus(_id)} 
                         className="text-green bg-green-100 rounded-full cursor-pointer hover:scale-110 transition-transform duration-200"
                         size={24}
                     />
                 ) : (
                     <IoEllipseOutline 
-                        onClick={() => toggleStatus(_id)} 
+                        onClick={() => handleChangeStatus(_id)} 
                         className="text-coral cursor-pointer hover:scale-110 transition-transform duration-200"
                         size={24}
                     />
@@ -53,6 +71,7 @@ function Task({ task }) {
                                 })}
                             </div>
                         )}
+                        {error && <div>{error}</div>}
                     </div>
                 )}
             </div>
@@ -63,7 +82,7 @@ function Task({ task }) {
                     size={20}
                 />
                 <IoTrashBin 
-                    onClick={() => deleteTask(_id)} 
+                    onClick={() => handleDelete(_id)} 
                     className="text-gray-400 cursor-pointer hover:text-coral transition-colors duration-200"
                     size={20}
                 />

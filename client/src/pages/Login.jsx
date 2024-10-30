@@ -7,6 +7,7 @@ function Login() {
         email: "",
         password: ""
     });
+    const [error, setError] = useState(null)
 
     const handleChange = (event) => {
         setFormData(previous => ({
@@ -16,11 +17,12 @@ function Login() {
     };
 
     const handleSubmit = async (event) => {
+        setError(null);
         event.preventDefault();
         try {
             await login(formData.email, formData.password);
         } catch (error) {
-            console.error('Login failed:', error);
+            setError(error.message);
         }
     };
 
@@ -38,6 +40,8 @@ function Login() {
                     placeholder="Enter password"
                 />    
                 <button type="submit" className="w-full"> Login </button>
+
+                {error && <div className="error-message">{error}</div>}
             </form>
         </>
     );
