@@ -9,7 +9,7 @@ const {
 const validateId = require('../middleware/validateId');
 const protect = require('../middleware/auth');
 
-router.get('/login', loginUser)
+router.post('/login', loginUser)
 
 router.post('/register', registerUser)
 

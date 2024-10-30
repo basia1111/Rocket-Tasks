@@ -28,10 +28,10 @@ const registerUser = async (req, res) => {
 
         const newUser = await new User({ name, email, password: hashedPassword }).save();
 
-        res.status(201).json({ user: newUser, token: generateToken(newUser._id) });
+        return res.status(201).json({ user: newUser, token: generateToken(newUser._id) });
 
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 };
 
@@ -50,10 +50,10 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        res.status(200).json({ user, token: generateToken(user._id) });
+        return res.status(200).json({ user, token: generateToken(user._id) });
 
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 };
 

@@ -7,11 +7,24 @@ export const TaskContextProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
     const [modifiedTask, setModifiedTask] = useState(null)
     
-    axios.defaults.baseURL = 'http://localhost:3000/api/tasks';
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3000/api/tasks',
+    });
+    
+    const setAuthToken = () => {
+        const token = localStorage.getItem('token'); 
+        if (token) {
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        } else {
+            delete axiosInstance.defaults.headers.common['Authorization']; 
+        }
+    };
+
+    setAuthToken();
 
     const getTasks = async () => {
         try {
-            const response = await axios.get('/');
+            const response = await axiosInstance.get('/');
             setTasks(response.data);
         } catch (err) {
             console.error('Failed to fetch tasks:', err.message);
@@ -20,7 +33,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const toggleStatus = async (id) => {
         try {
-            await axios.put(`/status/${id}`);
+            await axiosInstance.put(`/status/${id}`);
 
             setTasks(prevTasks =>
                 prevTasks.map(task =>
@@ -34,7 +47,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const deleteTask = async (id) => {
         try {
-            await axios.delete(`/${id}`);
+            await axiosInstance.delete(`/${id}`);
         
             setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
             console.log('Task deleted');
@@ -45,7 +58,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const addTask = async (task) => {
         try {
-            const response = await axios.post('/', task);
+            const response = await axiosInstance.post('/', task);
             
             setTasks(prevTasks => [...prevTasks, response.data] )
             console.log('Task added');
@@ -57,7 +70,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const editTask = async (id, updatedTask) => {
         try {
-            const response = await axios.put(`/${id}`, updatedTask);
+            const response = await axiosInstance.put(`/${id}`, updatedTask);
 
             setTasks((prevTasks) =>
                 prevTasks.map((task) => (task._id === id ? response.data : task))
@@ -75,7 +88,7 @@ export const TaskContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask, modifiedTask }}>
+        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask, modifiedTask, axiosInstance}}>
             {children}
         </TaskContext.Provider>
     );

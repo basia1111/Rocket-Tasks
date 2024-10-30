@@ -1,6 +1,10 @@
 import { useState } from "react"
+import { useContext } from "react"
+import { AuthContext } from '../contexts/AuthContext'
 
 function Register (){
+
+    const { register } = useContext(AuthContext)
 
     const [formData, setFormData] = useState({
         name: "",
@@ -16,8 +20,17 @@ function Register (){
         }))
     }
 
-    const handleSubmit = (event) => {
-        event.prevent.default();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const { name, email, password, checkPassword} = formData
+        if(password == checkPassword){
+            try {
+                await register( name, email, password)
+            } catch{  
+                console.log('register error')
+            }
+        }
     }
 
     return(
