@@ -1,72 +1,19 @@
-import { useState } from "react"
-import { useContext } from "react"
-import { AuthContext } from '../contexts/AuthContext'
+import RegisterForm from "../components/forms/RegisterForm"
 
-function Register (){
-    const { register } = useContext(AuthContext)
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        checkPassword: ""
-    })
-    const [error, setError] = useState(null)
+function Register(){
 
-
-    const handleChange = (event) => {
-        setFormData(previus =>({
-            ...previus,
-            [event.target.name] : event.target.value
-        }))
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const { name, email, password, checkPassword} = formData
-        setError(null);
-        if(password == checkPassword){
-            try {
-                await register( name, email, password)
-            } catch (error) {  
-                setError(error.message);
-            }
-        } else {
-            setError('passwards should match')
-        }
-    }
-
-    return(
-        <>
-            <form onSubmit={handleSubmit}
-                className="flex flex-col gap-5 w-1/2"> 
+return(
+    <div className="min-w-[320px] max-w-[1320px] h-full w-full p-4 flex gap-10 justify-between" >
+         <div className="w-1/2 h-full md:flex flex-col bg-white p-10 rounded-3xl shadow-xl hidden">
             
-                <input 
-                    type="text" name="name" id="name" value={formData.name} 
-                    onChange={handleChange}
-                    placeholder="Enter your name"
-                />
-                <input 
-                    type="email" name="email" id="email" value={formData.email} 
-                    onChange={handleChange}
-                    placeholder="Enter your email"
-                />
-                <input 
-                    type="password" name="password" id="password" value={formData.password} 
-                    onChange={handleChange} 
-                    placeholder="Enter password"
-                />
-                <input 
-                    type="password" name="checkPassword" id="checkPassword" value={formData.checkPassword} 
-                    onChange={handleChange} 
-                    placeholder="Confirm password"
-                />
-                
-                <button type="submit" className="w-full"> Register </button>
-                {error && <div className="error-message">{error}</div>}
-            </form>
-        </>
-    )
+        </div>
+        <div className="md:w-1/2 w-full h-full flex flex-col md:p-10 p-4 items-start justify-start ">
+            <h1 className="font-Montserrat font-bold text-4xl pb-4">Create Your Account</h1>
+            <p className="font-Montserrat font-normal text-l pb-8" >Sign up to start managing your tasks efficiently!</p>
+            <RegisterForm />
+        </div>
+    </div>
+)
 
 }
 

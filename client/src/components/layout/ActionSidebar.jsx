@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TaskForm from "./TaskForm";
+import TaskForm from "../forms/TaskForm";
 import { IoAdd, IoCloseOutline } from "react-icons/io5";
 
 function ActionSidebar() {
@@ -11,18 +11,22 @@ function ActionSidebar() {
     return (
         <>
             <div 
-                className={`p-6 bg-gray-100 rounded-xl h-full md:w-2/6 w-full md:relative absolute 
+                className={` bg-image md:bg-gray-100 bg-white rounded-xl h-full md:w-2/6 w-full md:relative absolute 
                 md:left-0 ${isOpen ? 'left-0 top-0' : 'left-full top-0'} transition-all duration-300 ease-in-out`}
             >
-                <button 
-                    onClick={closeSidebar}
-                    className="flex items-center justify-center md:hidden absolute right-5 top-5 
-                    hover:scale-110 transition-transform duration-200"
-                >
-                    <IoCloseOutline className="size-6" />
-                </button>
-                <h2 className="text-2xl font-Montserrat font-semibold mb-4">Create New Task</h2>
-                <TaskForm close={closeSidebar} />
+
+                <div className="h-full rounded-xl  p-6 w-full backdrop-blur-xl">
+                    <button 
+                        onClick={closeSidebar}
+                        className="flex items-center justify-center md:hidden absolute right-5 top-5 
+                        hover:scale-110 transition-transform duration-200"
+                    >
+                        <IoCloseOutline className="size-6" />
+                    </button>
+                    <h2 className="text-2xl font-Montserrat font-semibold mb-4 text-black">Create New Task</h2>
+                    <TaskForm close={closeSidebar}/>
+                </div>
+
             </div>
 
             <button 
@@ -33,6 +37,7 @@ function ActionSidebar() {
             >
                 <IoAdd className="text-white size-8" />
             </button>
+
         </>
     );
 }

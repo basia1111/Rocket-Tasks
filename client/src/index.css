@@ -7,13 +7,13 @@
 
 .line-through {
     text-decoration: line-through;
-    text-decoration-color: black; /* Color of the line-through when active */
-    transition: text-decoration-color 0.2s ease-in-out; /* Duration for the line-through effect */
+    text-decoration-color: black; 
+    transition: text-decoration-color 0.2s ease-in-out; 
 }
 .decoration-transparent {
     text-decoration: line-through;
-    text-decoration-color: transparent; /* Color of the line-through when inactive */
-    transition: text-decoration-color 0.2s ease-in-out; /* Quick transition when going back to transparent */
+    text-decoration-color: transparent; 
+    transition: text-decoration-color 0.2s ease-in-out; 
 }
 @keyframes pulse-once {
     0%, 100% { opacity: 1; }

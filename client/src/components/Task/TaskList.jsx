@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TaskContext } from '../contexts/TaskContext';
+import { TaskContext } from '../../contexts/TaskContext';
 import Task from "./Task";
 
 function TaskList() {
@@ -15,11 +15,11 @@ function TaskList() {
     return (
         <div className="relative flex flex-col md:w-4/6  w-full md:p-10 p4">
   
-            <h1 className="text-4xl font-Montserrat font-bold text-navy pb-2">
+            <h1 className="text-4xl font-Montserrat font-bold text-BLACK pb-2">
                 Tasks
             </h1>  
 
-            <p className="text-l font-Montserrat font-normal text-navy md:pb-8 pb-4">
+            <p className="text-l font-Montserrat font-normal text-BLACK md:pb-8 pb-4">
                 {formattedDate}
             </p>
 
