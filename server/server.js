@@ -21,6 +21,4 @@ mongoose.connect(process.env.DATABASE_URL)
     .then(() => console.log('connected to database'))
     .catch((err) => console.log(err.message))
 
-app.listen(3000, () => {
-    console.log('server is running on port 3000')
-})
+module.exports = app
