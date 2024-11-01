@@ -7,7 +7,9 @@ const usersRouter = require('./routes/users')
 require('dotenv').config()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: ["https://rockettasks.vercel.app"]
+}))
 app.use('/api/tasks', tasksRouter )
 app.use('/api/users', usersRouter )
 
