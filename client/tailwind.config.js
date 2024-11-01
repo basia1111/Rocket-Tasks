@@ -8,17 +8,17 @@ export default {
     extend: {
       colors:{
         'black': '#0c0916',
-        'navy':'#1a1734',
         'light-navy':'#26224c', 
         'green':'#02edaf',
         'coral':'#fd0046',
-        'yellow':"#ff9e00",
-        'light-yellow': "#fcf3e5"
+        'yellow':"#fdb803",
+        'light-yellow': "#fff9ea",
+        'blue-gray':'#191f2b'
       },
       fontFamily:{
         'PTSans':['PT Sans Narrow', 'sans-serif'],
         'Montserrat':['Montserrat','sans-serif']
-      }
+      },
     },
   },
   plugins: [],

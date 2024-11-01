@@ -12,7 +12,7 @@ function TaskCheckbox({status, handleChangeStatus, id}){
             ) : (
                 <IoEllipseOutline 
                     onClick={() => handleChangeStatus(id)} 
-                    className="text-coral cursor-pointer hover:scale-110 transition-transform duration-200"
+                    className="text-blue-gray cursor-pointer hover:scale-110 transition-transform duration-200"
                     size={24}
                 />
             )}

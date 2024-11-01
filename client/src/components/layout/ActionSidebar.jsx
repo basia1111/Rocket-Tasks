@@ -11,11 +11,11 @@ function ActionSidebar() {
     return (
         <>
             <div 
-                className={` bg-image md:bg-gray-100 bg-white rounded-xl h-full md:w-2/6 w-full md:relative absolute 
-                md:left-0 ${isOpen ? 'left-0 top-0' : 'left-full top-0'} transition-all duration-300 ease-in-out`}
+                className={` md:bg-gray-100 bg-white rounded-xl h-full md:w-2/6 w-full md:relative absolute 
+                md:left-0 ${isOpen ? 'left-0 top-0' : 'left-full top-0'} transition-all duration-500 ease-in-out`}
             >
 
-                <div className="h-full rounded-xl  p-6 w-full backdrop-blur-xl">
+                <div className="h-full rounded-xl  p-6 w-full bg-[url('/images/bg-dash.png')] bg-contain bg-no-repeat bg-bottom">
                     <button 
                         onClick={closeSidebar}
                         className="flex items-center justify-center md:hidden absolute right-5 top-5 

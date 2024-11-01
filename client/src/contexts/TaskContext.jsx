@@ -50,7 +50,6 @@ export const TaskContextProvider = ({ children }) => {
     const deleteTask = async (id) => {
         try {
             await axiosInstance.delete(`/${id}`);
-        
             setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
             console.log('Task deleted');
         } catch (error) {
@@ -63,6 +62,11 @@ export const TaskContextProvider = ({ children }) => {
         try {
             const response = await axiosInstance.post('/', task);
             setTasks(prevTasks => [...prevTasks, response.data] )
+            setModifiedTask(response.data._id)
+
+            setTimeout(() => {
+                setModifiedTask(null)
+            }, 1000);
         } catch(error) {
             const errorMessage = error.response?.data?.message || 'Task could not be added';
             throw new Error(errorMessage);
@@ -77,6 +81,10 @@ export const TaskContextProvider = ({ children }) => {
                 prevTasks.map((task) => (task._id === id ? response.data : task))
             );
             setModifiedTask(response.data._id)
+            
+            setTimeout(() => {
+                setModifiedTask(null)
+            }, 1000);
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Task could not be added';
             throw new Error(errorMessage);

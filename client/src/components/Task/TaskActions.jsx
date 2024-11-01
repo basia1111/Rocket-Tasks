@@ -5,12 +5,12 @@ function TaskActions({id, handleDelete, setIsEditing}){
         <div className="flex gap-3 items-center">
             <IoPencil 
                 onClick={() => setIsEditing(true)} 
-                className="text-gray-400 cursor-pointer hover:text-yellow-400 transition-colors duration-200"
+                className="text-blue-gray cursor-pointer hover:text-yellow-400 transition-colors duration-200"
                 size={20}
             />
             <IoTrashBin 
                 onClick={() => handleDelete(id)} 
-                className="text-gray-400 cursor-pointer hover:text-coral transition-colors duration-200"
+                className="text-blue-gray cursor-pointer hover:text-coral transition-colors duration-200"
                 size={20}
             />
      </div>

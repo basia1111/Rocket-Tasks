@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { IoLockClosed, IoMailSharp } from "react-icons/io5";
+import { IoMailSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom' 
 import Input from "./forms-components/Input";
 import PasswordInput from "./forms-components/PasswordInput";

@@ -7,7 +7,6 @@ const validateTaskData = (req, res, next) => {
 
     if (dueDate) {
         const parsedDate = new Date(dueDate);
-        const currentDate = new Date();
 
         if (isNaN(parsedDate.getTime())) {
             return res.status(400).json({ message: 'Due date must be a valid date.' });
