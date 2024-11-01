@@ -8,7 +8,7 @@ export const TaskContextProvider = ({ children }) => {
     const [modifiedTask, setModifiedTask] = useState(null)
     
     const axiosInstance = axios.create({
-        baseURL: 'https://to-do-app-backend-nine.vercel.app/api/tasks',
+        baseURL: 'https://to-do-app-beta-one-24.vercel.app/api/tasks',
     });
     
     const setAuthToken = () => {
