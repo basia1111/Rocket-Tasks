@@ -13,16 +13,16 @@ function App() {
   const location = useLocation(); // Use location to track path changes
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait" initial={false} >
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Layout />}>
           <Route element={<ProtectedRoute />}>
-            <Route index element={<DashWrapper><Dashboard /></DashWrapper>} />
+            <Route index element={<DashWrapper key="dash"><Dashboard /></DashWrapper>} />
           </Route>
 
           <Route element={<PublicRoute />}>
-            <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
-            <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
+            <Route path="/login" element={<PageWrapper key="login" ><Login /></PageWrapper>} />
+            <Route path="/register" element={<PageWrapper key="register"><Register /></PageWrapper>} />
           </Route>
         </Route>
       </Routes>
