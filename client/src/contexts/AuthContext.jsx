@@ -5,8 +5,8 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-
-    axios.defaults.baseURL = 'https://to-do-app-beta-one-24.vercel.app/api/users';
+    const API_URL = import.meta.env.VITE_API_URL
+    axios.defaults.baseURL = `${API_URL}/users`;
 
     const persistUser = (response) => {
         setUser(response.data.user);

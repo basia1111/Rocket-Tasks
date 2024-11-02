@@ -6,9 +6,9 @@ export const TaskContext = createContext();
 export const TaskContextProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
     const [modifiedTask, setModifiedTask] = useState(null)
-    
+    const API_URL = import.meta.env.VITE_API_URL
     const axiosInstance = axios.create({
-        baseURL: 'https://to-do-app-beta-one-24.vercel.app/api/tasks',
+        baseURL: `${API_URL}/tasks`,
     });
     
     const setAuthToken = () => {
