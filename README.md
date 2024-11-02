@@ -7,7 +7,8 @@ Rocket Tasks is a MERN (MongoDB, Express, React, Node.js) application designed t
 
 <img width="30%" alt="Zrzut ekranu 2024-11-2 o 12 32 38" src="https://github.com/user-attachments/assets/0656757c-5d72-43dd-9f37-95799b1df124">
 <img width="30%" alt="Zrzut ekranu 2024-11-2 o 12 32 51" src="https://github.com/user-attachments/assets/878843a8-4a2c-4404-93a8-15959d604d03">
-<img width="30%" alt="Zrzut ekranu 2024-10-29 o 07 26 16" src="https://github.com/user-attachments/assets/def2c25d-ea28-45b7-a24b-661a60c61d3a">
+<img width="30%" alt="Zrzut ekranu 2024-11-2 o 12 34 12" src="https://github.com/user-attachments/assets/6350acc3-e067-45a4-8556-da54351de438">
+
 <img width="25%" alt="Zrzut ekranu 2024-11-2 o 12 35 35" src="https://github.com/user-attachments/assets/a4bc3738-e075-4d59-9150-51d3540428db">
 <img width="25%" alt="Zrzut ekranu 2024-11-2 o 13 12 12" src="https://github.com/user-attachments/assets/67dcbddd-4581-4b69-ae3f-37c30a247ca4">
 
