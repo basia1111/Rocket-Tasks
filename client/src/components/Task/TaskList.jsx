@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TaskContext } from '../../contexts/TaskContext';
 import Task from "./Task";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function TaskList() {
     const { tasks } = useContext(TaskContext);
@@ -31,10 +31,13 @@ function TaskList() {
                         <p className="text-base max-w-sm text-center font-normal" >It looks like your task list is currently orbiting in silence. Enter your first task to kick off your adventure through the galaxy of productivity!</p>
                     </div>
                 :
-                    tasks.map(task => (
+                <AnimatePresence mode="popLayout">
+                    {tasks.map(task => (
                         <Task key={task._id} task={task} />
-                    ))      
+                    )) }  
+                </AnimatePresence>   
                 }
+                
             </motion.div>
             <div className="absolute bottom-[-1px] left-0 right-0 md:h-24 h-14 bg-gradient-to-b  from-transparent via-white to-white pointer-events-none"></div>
         </div>

@@ -1,5 +1,7 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { ToastContext } from './ToastContext';
 import axios from 'axios';
+
 
 export const TaskContext = createContext();
 
@@ -10,6 +12,7 @@ export const TaskContextProvider = ({ children }) => {
     const axiosInstance = axios.create({
         baseURL: `${API_URL}/tasks`,
     });
+    const { addToast } = useContext(ToastContext)
     
     const setAuthToken = () => {
         const token = localStorage.getItem('token'); 
@@ -41,6 +44,16 @@ export const TaskContextProvider = ({ children }) => {
                     task._id === id ? { ...task, status: !task.status } : task
                 )
             );
+            
+            let task = tasks.find(task => (
+                task._id == id
+            ))
+
+            if(!task.status){
+                addToast(`${task.title} is done!`, "Success")
+            }
+
+
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Failed to change status of task';
             throw new Error(errorMessage);

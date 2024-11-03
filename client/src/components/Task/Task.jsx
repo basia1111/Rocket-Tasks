@@ -31,14 +31,19 @@ function Task({ task }) {
     };
 
     return (
-        <AnimatePresence>
+
         <motion.div
             className={`w-full flex justify-between items-center py-3 md:px-4 px-2 border-b-[1px] border-gray-200 
             `}
             key="editing-task"
-            initial={{ opacity: 1 }} 
-            animate={{ opacity:1, backgroundColor: modifiedTask === _id ? ["#ffffff", '#baf4ce', "#ffffff"] : '' }}
-            exit={{opacity:0,  transition: { duration: 1 }}}
+            initial={{ x:10 }} 
+            animate={{ x:0, backgroundColor: modifiedTask === _id ? ["#ffffff", '#baf4ce', "#ffffff"] : '' }}
+            exit={{x:-10,  transition:{
+                type: "spring",
+                duration: 0.2,
+                stiffness: 200,
+                damping: 30
+            }}}
             layout
         >
             <div className="flex items-center gap-4">
@@ -87,7 +92,6 @@ function Task({ task }) {
             </div>
             <TaskActions id={_id} handleDelete={handleDelete} setIsEditing={setIsEditing} />
         </motion.div>
-        </AnimatePresence>
     );
 }
 

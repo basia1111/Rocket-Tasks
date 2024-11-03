@@ -20,6 +20,3 @@
     50% { opacity: 0.5; }
 }
 
-.pulse-once {
-    animation: pulse-once 1s ease-in-out forwards; 
-}
