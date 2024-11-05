@@ -1,10 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TaskContext } from '../../contexts/TaskContext';
 import Task from "./Task";
+import TaskCounter from "./TaskCounter";
 import { motion, AnimatePresence } from "framer-motion";
 
 function TaskList() {
-    const { tasks } = useContext(TaskContext);
+    const { tasks, getTasks } = useContext(TaskContext);
+
+        useEffect(() => {
+            getTasks();
+            console.log('renderTasks')
+        }, []);
 
     const formattedDate = new Date().toLocaleDateString('en-US', {
         weekday: 'long',  
@@ -15,13 +21,18 @@ function TaskList() {
 
     return (
         <div className="relative flex flex-col md:w-4/6  w-full md:p-10 p4">            
-            <h1 className="md:text-4xl text-2xl font-Montserrat font-bold text-BLACK pb-2">
-                Tasks
-            </h1>  
-
-            <p className="md:text-base text-sm font-Montserrat font-normal text-BLACK md:pb-8 pb-4">
-                {formattedDate}
-            </p>
+            <div className="flex w-full justify-between">
+                <div>
+                    <h1 className="md:text-4xl text-2xl font-Montserrat font-bold text-BLACK pb-2">
+                        Tasks
+                    </h1>  
+                    <p className="md:text-base text-sm font-Montserrat font-normal text-BLACK md:pb-8 pb-4">
+                        {formattedDate}
+                    </p>
+                </div>
+                <TaskCounter></TaskCounter>
+            </div>
+            
 
             <motion.div className="font-PTSans flex flex-col h-full overflow-y-scroll md:pb-6 pb-16" layout>
                 { tasks.length === 0 ? 

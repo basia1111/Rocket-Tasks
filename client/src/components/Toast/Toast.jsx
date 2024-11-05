@@ -1,9 +1,9 @@
-import { useContext } from 'react'
+import { useContext, forwardRef } from 'react'
 import { ToastContext } from '../../contexts/ToastContext';
 import { motion, }  from 'framer-motion'
 import {IoCloseOutline } from "react-icons/io5";
 
-const Toast = ({ type, message, id}) => {
+const Toast = ({ type, message, id}, ref) => {
 
     const { closeToast } = useContext(ToastContext)
     const variants = {
@@ -32,4 +32,4 @@ const Toast = ({ type, message, id}) => {
     );
 };
 
-export default Toast 
+export default forwardRef(Toast) 

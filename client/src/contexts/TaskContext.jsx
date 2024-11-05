@@ -29,6 +29,8 @@ export const TaskContextProvider = ({ children }) => {
         try {
             const response = await axiosInstance.get('/');
             setTasks(response.data);
+
+            console.log('get tasks was called')
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Failed to fetch tasks';
             throw new Error(errorMessage);
@@ -103,11 +105,6 @@ export const TaskContextProvider = ({ children }) => {
             throw new Error(errorMessage);
         }
     };
-    
-
-    useEffect(() => {
-        getTasks();
-    }, []);
 
     return (
         <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask, modifiedTask, axiosInstance}}>

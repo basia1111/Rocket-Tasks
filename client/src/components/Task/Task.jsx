@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, forwardRef } from "react";
 import { TaskContext } from '../../contexts/TaskContext';
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import TaskForm from '../forms/TaskForm';
@@ -6,7 +6,7 @@ import TaskActions from "./TaskActions";
 import TaskCheckbox from "./TaskCheckbox";
 import { AnimatePresence, backInOut, motion } from "framer-motion";
 
-function Task({ task }) {
+function Task({ task }, ref) {
     const { toggleStatus, deleteTask, modifiedTask } = useContext(TaskContext);
     const { title, _id, dueDate, status } = task;
     const [isEditing, setIsEditing] = useState(false);
@@ -35,9 +35,10 @@ function Task({ task }) {
         <motion.div
             className={`w-full flex justify-between items-center py-3 md:px-4 px-2 border-b-[1px] border-gray-200 
             `}
+            ref={ref}
             key="editing-task"
             initial={{ x:10 }} 
-            animate={{ x:0, backgroundColor: modifiedTask === _id ? ["#ffffff", '#baf4ce', "#ffffff"] : '' }}
+            animate={{ x:0, backgroundColor: modifiedTask === _id ? ["#ffffff", '#baf4ce', "#ffffff"] : '#ffffff' }}
             exit={{x:-10,  transition:{
                 type: "spring",
                 duration: 0.2,
@@ -48,8 +49,9 @@ function Task({ task }) {
         >
             <div className="flex items-center gap-4">
                 <TaskCheckbox id={_id} handleChangeStatus={handleChangeStatus} status={status} />
-                {isEditing ? (
-                    <AnimatePresence>
+                
+                    {isEditing ? (
+                        <AnimatePresence>
                         <motion.div
                             key="editing-form"
                             initial={{ y: 0 }}
@@ -88,11 +90,11 @@ function Task({ task }) {
                         )}
                         {error && <div>{error}</div>}
                     </div>
-                )}
+                    )}
             </div>
             <TaskActions id={_id} handleDelete={handleDelete} setIsEditing={setIsEditing} />
         </motion.div>
     );
 }
 
-export default Task;
+export default forwardRef(Task);

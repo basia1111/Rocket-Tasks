@@ -16,6 +16,7 @@ function PasswordInput({name, placeholder, value, onChange}){
                 name={name} id={name} value={value} 
                 onChange={onChange}
                 placeholder={placeholder}
+                autoComplete="current-password"
                 className="w-full py-4 pl-10 pr-4 border-b-[1px] border-gray-300 bg-transparent focus:outline-none focus:border-green-500 transition-all duration-200 rounded-none"
             />
 
