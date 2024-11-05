@@ -29,8 +29,6 @@ export const TaskContextProvider = ({ children }) => {
         try {
             const response = await axiosInstance.get('/');
             setTasks(response.data);
-
-            console.log('get tasks was called')
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Failed to fetch tasks';
             throw new Error(errorMessage);
@@ -101,7 +99,7 @@ export const TaskContextProvider = ({ children }) => {
                 setModifiedTask(null)
             }, 1000);
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Task could not be added';
+            const errorMessage = error.response?.data?.message || 'Task could not be modified';
             throw new Error(errorMessage);
         }
     };
