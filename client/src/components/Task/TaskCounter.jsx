@@ -25,7 +25,7 @@ function TaskCounter(){
 
 
     return(
-        <svg width="90" height="90" viewBox="0 0 90 90" layout>
+        <svg width="90" height="90" viewBox="0 0 90 90">
             <circle cx="45" cy="45" r="40" stroke="#f3f4f6" strokeWidth="10" fill="none" />
             <motion.circle 
                 cx="45" cy="45" r="40" stroke="#05edaf" strokeWidth="6" fill="none" 

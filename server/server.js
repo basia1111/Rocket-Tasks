@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const tasksRouter = require('./routes/tasks')
 const usersRouter = require('./routes/users')
+const tagsRouter = require('./routes/tags')
 require('dotenv').config()
 const mode = process.env.NODE_ENV
 
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use('/api/tasks', tasksRouter )
 app.use('/api/users', usersRouter )
+app.use('/api/tags', tagsRouter )
 
 app.get('/api', (req, res) => {
     res.status(200).json({message: 'connected to backend'})
