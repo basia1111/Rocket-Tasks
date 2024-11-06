@@ -10,6 +10,7 @@ function Task({ task }, ref) {
     const { toggleStatus, deleteTask, modifiedTask } = useContext(TaskContext);
     const { title, _id, dueDate, status } = task;
     const [isEditing, setIsEditing] = useState(false);
+    const [isOpen, setIsOpen] =  useState(false)
     const [error, setError] = useState(null);
 
     const handleDelete = async (id) => {
@@ -30,21 +31,31 @@ function Task({ task }, ref) {
         }
     };
 
+    const handleHover = () => {
+        setIsOpen(open => !open)
+    }
+
     return (
 
         <motion.div
-            className={`w-full flex justify-between items-center py-3 md:px-4 px-2 border-b-[1px] border-gray-200 
-            `}
+            className={`relative  w-full flex justify-between items-center py-3 md:px-4 px-2 border-b-[1px]`}
+            onMouseEnter={handleHover} onMouseLeave={handleHover}
             ref={ref}
             key="editing-task"
             initial={{ x:10 }} 
-            animate={{ x:0, backgroundColor: modifiedTask === _id ? ["#ffffff", '#baf4ce', "#ffffff"] : '#ffffff' }}
+            animate={{ 
+                x:0, 
+                backgroundColor: modifiedTask === _id ? ["#ffffff", '#baf4ce', "#ffffff"] : '#ffffff' }}
             exit={{x:-10,  transition:{
                 type: "spring",
                 duration: 0.2,
                 stiffness: 200,
                 damping: 30
             }}}
+            transition={{
+                duration:0.3
+            }}
+            whileHover={{backgroundColor: '#f9fafc'}}
             layout
         >
             <div className="flex items-center gap-4">
@@ -92,7 +103,9 @@ function Task({ task }, ref) {
                     </div>
                     )}
             </div>
-            <TaskActions id={_id} handleDelete={handleDelete} setIsEditing={setIsEditing} />
+            <div className={`${isOpen ? "visible" : "hidden" }`}>
+                <TaskActions id={_id} handleDelete={handleDelete} setIsEditing={setIsEditing} />
+            </div>
         </motion.div>
     );
 }

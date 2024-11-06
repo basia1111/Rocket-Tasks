@@ -55,7 +55,7 @@ export const TagContextProvider = ({ children }) => {
 
     }
 
-    const editTask = async (id, updatedTag) => {
+    const editTag = async (id, updatedTag) => {
         try {
             const response = await axiosInstance.put(`/${id}`, updatedTag);
             setTags((prevTasks) =>
@@ -68,7 +68,7 @@ export const TagContextProvider = ({ children }) => {
     };
 
     return (
-        <TagContext.Provider value={{ tags, getTags, deleteTag, addTag, editTask }}>
+        <TagContext.Provider value={{ tags, getTags, deleteTag, addTag, editTag }}>
             {children}
         </TagContext.Provider>
     );

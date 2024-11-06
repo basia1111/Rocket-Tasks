@@ -6,6 +6,7 @@ import { IoAdd } from "react-icons/io5";
 import { useState } from 'react';
 import Modal from '../components/layout/Modal';
 import TaskForm from '../components/forms/TaskForm';
+import TagFormToggle from '../components/Tag/TagFormToggle';
 
 function Dashboard (){
 
@@ -24,6 +25,7 @@ function Dashboard (){
                 <div className="relative flex flex-col  w-full md:p-10 p4">     
                     <DashboardHeader />
                     <TagList />
+                    <TagFormToggle />
                     <TaskList />
                
                 </div>
