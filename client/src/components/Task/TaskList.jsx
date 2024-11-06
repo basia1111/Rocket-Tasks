@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { TaskContext } from '../../contexts/TaskContext';
 import Task from "./Task";
-import TaskCounter from "./TaskCounter";
 import { motion, AnimatePresence } from "framer-motion";
 
 function TaskList() {
@@ -12,28 +11,8 @@ function TaskList() {
             console.log('renderTasks')
         }, []);
 
-    const formattedDate = new Date().toLocaleDateString('en-US', {
-        weekday: 'long',  
-        year: 'numeric',  
-        month: 'long',     
-        day: 'numeric'
-    });
-
     return (
-        <div className="relative flex flex-col md:w-4/6  w-full md:p-10 p4">            
-            <div className="flex w-full justify-between">
-                <div>
-                    <h1 className="md:text-4xl text-2xl font-Montserrat font-bold text-BLACK pb-2">
-                        Tasks
-                    </h1>  
-                    <p className="md:text-base text-sm font-Montserrat font-normal text-BLACK md:pb-8 pb-4">
-                        {formattedDate}
-                    </p>
-                </div>
-                <TaskCounter></TaskCounter>
-            </div>
-            
-
+         <>
             <motion.div className="font-PTSans flex flex-col h-full overflow-y-scroll md:pb-6 pb-16" layout>
                 { tasks.length === 0 ? 
                     <div className="h-full w-full flex flex-col items-center justify-center font-Montserrat"> 
@@ -47,11 +26,10 @@ function TaskList() {
                         <Task key={task._id} task={task} />
                     )) }  
                 </AnimatePresence>   
-                }
-                
+                } 
             </motion.div>
             <div className="absolute bottom-[-1px] left-0 right-0 md:h-24 h-14 bg-gradient-to-b  from-transparent via-white to-white pointer-events-none"></div>
-        </div>
+        </>
     );
 }
 

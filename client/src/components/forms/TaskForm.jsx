@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { TaskContext } from '../../contexts/TaskContext';
 import { IoCalendarNumber } from "react-icons/io5";
 import { PiSubtitlesFill } from "react-icons/pi";
-import Input from "./forms-components/Input";
+import CreateFormInput from "./forms-components/CreateFormInput";
 import SubmitButton from "./forms-components/SubmitButton";
 
 
@@ -30,6 +30,8 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
         try {
             await addTask(newTask);
             close()
+            setFormTitle(t => '')
+            setFormDate( d => d)
         } catch (error) {
             setError(error.message);
         }
@@ -48,15 +50,13 @@ function TaskForm({ editMode, id, onCancel, title, dueDate, close}) {
         } else {
             handleCreate(newTask); 
         }
-
-        event.target.reset();
     };
 
     return (
         <form onSubmit={handleSubmit} className={`flex font-Montserrat text-navy w-full  gap-4 ${editMode ? "md:flex-row flex-col md:items-end" : "flex-col"}`}> 
          
-            <Input value={formTitle} type="text" name="title" onChange={handleTitleChange} placeholder="Enter task title..." icon={PiSubtitlesFill}  />
-            <Input value={formDate} type="date" name="dueDate" onChange={handleDateChange} icon={IoCalendarNumber} />
+            <CreateFormInput value={formTitle} type="text" name="title" onChange={handleTitleChange} placeholder="Enter task title..."/>
+            <CreateFormInput value={formDate} type="date" name="dueDate" onChange={handleDateChange} />
             
             {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 

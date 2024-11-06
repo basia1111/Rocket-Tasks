@@ -15,8 +15,16 @@
     text-decoration-color: transparent; 
     transition: text-decoration-color 0.2s ease-in-out; 
 }
-@keyframes pulse-once {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
 
+input[type="color"] {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    border-radius: 15px;
+    cursor: pointer;
+    height: 30px;
+    padding: 0;
+    width: 30px;
+  }

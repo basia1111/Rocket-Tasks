@@ -25,7 +25,7 @@ export const TagContextProvider = ({ children }) => {
     const getTags = async () => {
         try {
             const response = await axiosInstance.get('/');
-            console.log('got tags')
+            
             setTags(response.data);
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Failed to fetch tags';
@@ -44,9 +44,9 @@ export const TagContextProvider = ({ children }) => {
         }
     };
 
-    const addTag = async (task) => {
+    const addTag = async (tag) => {
         try {
-            const response = await axiosInstance.post('/', task);
+            const response = await axiosInstance.post('/', tag);
             setTags(prevTags => [...prevTags, response.data] )
         } catch(error) {
             const errorMessage = error.response?.data?.message || 'Tag could not be added';
@@ -55,11 +55,11 @@ export const TagContextProvider = ({ children }) => {
 
     }
 
-    const editTask = async (id, updatedTask) => {
+    const editTask = async (id, updatedTag) => {
         try {
-            const response = await axiosInstance.put(`/${id}`, updatedTask);
+            const response = await axiosInstance.put(`/${id}`, updatedTag);
             setTags((prevTasks) =>
-                prevTasks.map((tag) => (tag._id === id ? response.data : task))
+                prevTasks.map((tag) => (tag._id === id ? response.data : tag))
             );
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Tag could not be modified';

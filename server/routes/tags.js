@@ -11,7 +11,7 @@ const validateId = require('../middleware/validateId')
 const validateTagData = require('../middleware/validateTagData')
 
 router.get('/',protect, getallTags)
-router.post('/',protect, validateId, validateTagData, createTag)
+router.post('/',protect, validateTagData, createTag)
 router.put('/:id',protect, validateId, validateTagData, UpdateTag)
 router.delete('/:id',protect, validateId, deleteTag)
 

@@ -8,7 +8,6 @@ function SubmitButton({content}){
             {content}     
         </button>
     )
-
 }
 
 export default SubmitButton

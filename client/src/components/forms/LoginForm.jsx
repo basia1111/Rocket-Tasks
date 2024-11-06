@@ -34,8 +34,6 @@ function LoginForm() {
     return (
         <>
             <form onSubmit={handleSubmit}  className="w-full flex flex-col gap-5 font-Montserrat max-w-sm">
-               
-    
                 <Input value={formData.email} type="email"  name="email" onChange={handleChange} placeholder="Enter your email" icon={IoMailSharp}  />
                 <PasswordInput value={formData.password} name="password" onChange={handleChange} placeholder="Enter password" />
                 {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
@@ -45,7 +43,6 @@ function LoginForm() {
                 <div className="text-gray-400 flex items-center justify-center mt-4">
                     <p>Don't have an account? <Link to="/Register" className="text-green">Register here</Link></p>
                 </div>
-        
             </form>
         </>
     );

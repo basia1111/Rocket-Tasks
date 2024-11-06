@@ -17,8 +17,9 @@ const getallTags = async(req, res) => {
 }
 
 const createTag = async(req, res) => {
-    const { name } = req.body
-    const tag = new Tag({name, user: req.user.id})
+    const { name, color } = req.body
+    console.log(color)
+    const tag = new Tag({name, color, user: req.user.id})
 
     try {
         const savedTag = await tag.save()
@@ -30,12 +31,12 @@ const createTag = async(req, res) => {
 
 const UpdateTag = async(req, res) => {
     const { id } = req.params
-    const { name } = req.body
+    const { name, color } = req.body
     try {
         await FindTagByIdAndCeckOwnership(id, req.user.id);
         const updatedTag = await Tag.findByIdAndUpdate(
         id, 
-        { name },
+        { name, color },
         { new: true, runValidators: true })
         res.status(200).json(updatedTag)
     } catch(err) {

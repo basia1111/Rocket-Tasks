@@ -3,7 +3,6 @@ import Header from './Header';
 import ToastList from '../Toast/ToastList';
 
 function Layout(){
-
     const location = useLocation();
     
     return(
@@ -13,7 +12,6 @@ function Layout(){
             <ToastList />
         </div>
     )
-
 }
 
 export default Layout
