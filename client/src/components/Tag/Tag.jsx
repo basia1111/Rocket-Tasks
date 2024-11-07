@@ -34,9 +34,13 @@ function TagItem({ tag }) {
         }
     };
 
+    const handleClick = (id) => {
+        
+    }
+
 
     return (
-        <div onMouseEnter={showTagActions} onMouseLeave={hideTagActions}>
+        <div onClick={() => handleClick(_id)} onMouseEnter={showTagActions} onMouseLeave={hideTagActions}>
             {isEditing ?
                 <TagForm hideTagActions={hideTagActions} closeForm={() => setIsEditing(false)} isEditing={isEditing} color={color} name={name} id={_id} />
             :

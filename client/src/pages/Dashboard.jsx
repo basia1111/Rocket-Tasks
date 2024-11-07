@@ -2,9 +2,8 @@ import TaskList from '../components/Task/TaskList';
 import TagList from '../components/Tag/TagList'
 import DashboardHeader from '../components/layout/DashboardHeader';
 import { TaskContextProvider } from '../contexts/TaskContext';
-import TaskFormToggle from '../components/Task/taskFormToggle';
+import TaskFormToggle from '../components/Task/TaskFormToggle';
 import TagFormToggle from '../components/Tag/TagFormToggle';
-import ConfirmDeleteModal from '../components/layout/ConfirmDeleteModal';
 
 function Dashboard (){
 
