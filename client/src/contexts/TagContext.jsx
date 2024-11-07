@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
-
 export const TagContext = createContext();
 
 export const TagContextProvider = ({ children }) => {
@@ -37,7 +36,7 @@ export const TagContextProvider = ({ children }) => {
         try {
             await axiosInstance.delete(`/${id}`);
             setTags(prevTags => prevTags.filter(tag => tag._id !== id));
-            console.log('Taag deleted');
+            
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Tag could not be deleted';
             throw new Error(errorMessage);

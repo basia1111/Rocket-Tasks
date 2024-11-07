@@ -18,7 +18,7 @@ const findTaskByIdAndCheckOwnership = async (taskId, userId) => {
  */
 const getAllTasks = async (req, res) => {
     try {
-        const tasks = await Task.find({ user: req.user.id });
+        const tasks = await Task.find({ user: req.user.id }).populate('tags');
         res.status(200).json(tasks);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -31,12 +31,13 @@ const getAllTasks = async (req, res) => {
  * @access  Private
  */
 const createTask = async (req, res) => {
-    const { title, dueDate } = req.body;
-    const task = new Task({ title, dueDate, user: req.user.id, status: false });
+    const { title, dueDate, tags } = req.body;
+    const task = new Task({ title, dueDate, user: req.user.id, status: false, tags });
 
     try {
         const savedTask = await task.save();
-        res.status(201).json(savedTask);
+        const populatedTask = await Task.findById(savedTask._id).populate('tags');
+        res.status(201).json(populatedTask);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -48,7 +49,7 @@ const createTask = async (req, res) => {
  * @access  Private
  */
 const updateTask = async (req, res) => {
-    const { title, dueDate } = req.body;
+    const { title, dueDate, tags } = req.body;
     const { id } = req.params;
 
     try {
@@ -56,9 +57,9 @@ const updateTask = async (req, res) => {
 
         const updatedTask = await Task.findByIdAndUpdate(
             id,
-            { title, dueDate },
+            { title, dueDate, tags},
             { new: true, runValidators: true }
-        );
+        ).populate('tags');
         res.status(200).json(updatedTask);
     } catch (err) {
         res.status(err.message === "That's not your task" ? 401 : 500).json({ message: err.message });
@@ -98,7 +99,7 @@ const toggleTaskStatus = async (req, res) => {
             id,
             { status: !task.status },
             { new: true, runValidators: true }
-        );
+        ).populate('tags');
         res.status(200).json(updatedTask);
     } catch (err) {
         res.status(err.message === "That's not your task" ? 401 : 500).json({ message: err.message });

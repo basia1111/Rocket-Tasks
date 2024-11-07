@@ -1,4 +1,5 @@
 const Tag = require('../models/tag')
+const Task= require('../models/task')
 
 const FindTagByIdAndCeckOwnership = async(tagId, userId) => {
     const tag = await Tag.findById(tagId);
@@ -48,6 +49,14 @@ const deleteTag = async(req, res) => {
     try {
         await FindTagByIdAndCeckOwnership(id, req.user.id);
         const deletedTag = await Tag.findByIdAndDelete(id)
+        const tasks = await Task.find({user: req.user.id})
+        for (let task of tasks){
+            if(task.tags.includes(id)){
+                task.tags = task.tags.filter(t => t !== id)
+                await task.save()
+            }
+        }
+
         res.status(200).json(deletedTag)
     } catch(err) {
         return res.status(err.message==="That's not your tag" ? 401 : 500).json({message: err.message})

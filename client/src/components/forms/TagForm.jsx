@@ -1,14 +1,19 @@
 import { useContext, useState } from "react"
+import { TagContext } from '../../contexts/TagContext'
+import { TaskContext } from "../../contexts/TaskContext"
 import CreateFormInput from "./forms-components/CreateFormInput"
 import { IoIosColorPalette } from "react-icons/io";
-import { TagContext } from '../../contexts/TagContext'
 
-function TagForm({toggleTagForm, isEditing, setIsOpen, color, name, id}){
+
+function TagForm({closeForm, isEditing, hideTagActions, color, name, id}){
 
     const { addTag, editTag } = useContext(TagContext)
-    const[formName, setFormName] = useState(isEditing ? name : "")
-    const[formColor, setFormColor] = useState(isEditing ? color :"#e6e7eb")
+    const { getTasks } = useContext(TaskContext)
+    
+    const [formName, setFormName] = useState(isEditing ? name : "")
+    const [formColor, setFormColor] = useState(isEditing ? color :"#e6e7eb")
     const [error, setError] = useState(null)
+
 
     const handleNameChange = (event) => {setFormName(n => event.target.value)}
     const handleColorChange = (event) => {setFormColor(c => event.target.value)}
@@ -18,8 +23,9 @@ function TagForm({toggleTagForm, isEditing, setIsOpen, color, name, id}){
         setError(null);
         try {
             await editTag(id, newTag);
-            toggleTagForm()
-            setIsOpen(open => false)
+            closeForm()
+            hideTagActions()
+            getTasks()
         } catch(error) {
             setError(error.message);
         }
@@ -29,7 +35,7 @@ function TagForm({toggleTagForm, isEditing, setIsOpen, color, name, id}){
         setError(null);
         try {
             await addTag(newTag);
-            toggleTagForm()
+            closeForm()
             setFormName( n => '')
             setFormColor( c => "#e6e7eb")
         } catch (error) {
