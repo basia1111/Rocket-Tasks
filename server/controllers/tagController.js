@@ -24,7 +24,9 @@ const createTag = async(req, res) => {
 
     try {
         const savedTag = await tag.save()
+        console.log(req.user.name)
         return res.status(201).json(savedTag)
+
     } catch(err) {
         return res.status(500).json({message: err.message})
     }
