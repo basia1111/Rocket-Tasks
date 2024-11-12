@@ -1,28 +1,17 @@
-import { useContext, useEffect, useRef } from "react"
+import { useContext, useRef } from "react"
 import { TaskContext } from "../../contexts/TaskContext"
 import { ToastContext } from "../../contexts/ToastContext";
 import { motion } from "framer-motion";
 
 function TaskCounter(){
     const { tasks } = useContext(TaskContext);
-    const { addToast } = useContext(ToastContext);
-    const  doneTasks = tasks.filter(task => (task.status === true ))
+    const doneTasks = tasks.filter(task => (task.status === true ))
     const showedToast = useRef(false)
     const doneTasksPercentege =  tasks.length > 0 ? (doneTasks.length/tasks.length) : 0;
     
     const circumference = 2 * Math.PI * 40;
     const dashArray = circumference * doneTasksPercentege;
     const remaining = circumference - dashArray;
-
-    useEffect(() => {
-        if (tasks.length === doneTasks.length && tasks.length !== 0 && showedToast.current === false ){
-            addToast('Congratulations!', 'All tasks are completed!', )
-            showedToast.current = true
-        }else if(tasks.length !== doneTasks.length){
-            showedToast.current = false
-        }
-    }, [tasks, doneTasks, addToast])
-
 
     return(
         <svg width="90" height="90" viewBox="0 0 90 90">

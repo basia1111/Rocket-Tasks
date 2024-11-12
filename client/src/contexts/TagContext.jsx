@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export const TagContext = createContext();
@@ -19,12 +19,10 @@ export const TagContextProvider = ({ children }) => {
         }
     };
 
-    setAuthToken();
-
     const getTags = async () => {
         try {
+            setAuthToken();
             const response = await axiosInstance.get('/');
-            
             setTags(response.data);
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Failed to fetch tags';
@@ -34,6 +32,7 @@ export const TagContextProvider = ({ children }) => {
 
     const deleteTag = async (id) => {
         try {
+            setAuthToken()
             await axiosInstance.delete(`/${id}`);
             setTags(prevTags => prevTags.filter(tag => tag._id !== id));
             
@@ -45,8 +44,10 @@ export const TagContextProvider = ({ children }) => {
 
     const addTag = async (tag) => {
         try {
+            setAuthToken()
             const response = await axiosInstance.post('/', tag);
             setTags(prevTags => [...prevTags, response.data] )
+           
         } catch(error) {
             const errorMessage = error.response?.data?.message || 'Tag could not be added';
             throw new Error(errorMessage);
@@ -56,6 +57,7 @@ export const TagContextProvider = ({ children }) => {
 
     const editTag = async (id, updatedTag) => {
         try {
+            setAuthToken()
             const response = await axiosInstance.put(`/${id}`, updatedTag);
             setTags((prevTasks) =>
                 prevTasks.map((tag) => (tag._id === id ? response.data : tag))

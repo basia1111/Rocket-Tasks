@@ -14,7 +14,7 @@ export const ToastContextProvider = ({children}) => {
             id: Date.now(),
         }
         setToasts( prevToasts => [toast, ...prevToasts ])
-        setTimeout(() => {
+       setTimeout(() => {
             setToasts(prevToasts => prevToasts.filter(t => (
                 t.id !== toast.id
             )))

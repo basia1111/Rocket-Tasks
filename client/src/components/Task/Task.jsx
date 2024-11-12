@@ -60,9 +60,8 @@ function Task({ task }, ref) {
                 damping: 30
             }}}
             transition={{
-                duration:0.3
+                duration:0.4
             }}
-            whileHover={{backgroundColor: '#f9fafc'}}
             layout
         >
             <div className="flex items-center gap-4">

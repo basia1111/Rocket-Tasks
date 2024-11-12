@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom': 'rgba(32, 40, 56, 0.2) 1px 1px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;',
+      },
       colors:{
         'black': '#0c0916',
         'light-navy':'#26224c', 

@@ -19,9 +19,18 @@ const Toast = ({ type, message, id}, ref) => {
             animate="animate"
             exit="exit"
             transition={{duration:0.3}}
-            className="relative rounded-lg shadow-xl bg-white p-4 mb-2 border-2 border-green flex items-center gap-4"
+            className="relative rounded-xl bg-gray-50 shadow-xl border-2 p-4 mb-2 flex items-center gap-4 font-Montserrat"
         >
-                <p className="text-3xl">🎉</p>
+            <p className="text-3xl p-2 rounded-lg bg-green ">
+                {type == "Success" ?
+                    "🚀"   
+                :
+                    "🌟"
+                }    
+            </p>
+            
+            
+                
             <div> 
                 <p className="font-bold">{type}</p>
                 <p className="font-normal">{message}</p>

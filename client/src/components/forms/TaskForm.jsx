@@ -82,7 +82,7 @@ function TaskForm({ closeForm, isEditing, title, dueDate, id, currentTags, close
                     <div key={tag._id} >
                         <label htmlFor={tag._id}>
                             <div 
-                                className={`${selectedTags.includes(tag._id) ? "bg-green" : ""} flex w-auto gap-1 items-center rounded-full border-2 px-1 font-Montserrat font-normal text-xs shadow-md`}
+                                className={`${selectedTags.includes(tag._id) ? "shadow-custom bg-gray-50" : "shadow-md"} flex w-auto gap-1 items-center rounded-full border-2 px-2 font-Montserrat font-normal text-sm `}
                                 style={{ borderColor: tag.color }}
                             >
                                 <div>{tag.name}</div>

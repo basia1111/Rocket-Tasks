@@ -23,10 +23,9 @@ export const TaskContextProvider = ({ children }) => {
         }
     };
 
-    setAuthToken();
-
     const getTasks = async () => {
         try {
+            setAuthToken();
             const response = await axiosInstance.get('/');
             setTasks(response.data);
         } catch (error) {
@@ -37,19 +36,22 @@ export const TaskContextProvider = ({ children }) => {
 
     const toggleStatus = async (id) => {
         try {
+            setAuthToken();
             await axiosInstance.put(`/status/${id}`);
-
             setTasks(prevTasks =>
                 prevTasks.map(task =>
                     task._id === id ? { ...task, status: !task.status } : task
                 )
             );
-            
+
+            let doneTasks = tasks.filter(task => (task.status === true ))
             let task = tasks.find(task => (
                 task._id == id
             ))
 
-            if(!task.status){
+            if (!task.status && doneTasks.length + 1 == tasks.length){
+                addToast('All tasks are completed!', 'Congratulations')
+            } else if(!task.status) {
                 addToast(`${task.title} is done!`, "Success")
             }
 
@@ -62,9 +64,9 @@ export const TaskContextProvider = ({ children }) => {
 
     const deleteTask = async (id) => {
         try {
+            setAuthToken();
             await axiosInstance.delete(`/${id}`);
             setTasks(prevTasks => prevTasks.filter(task => task._id !== id));
-            console.log('Task deleted');
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Task could not be deleted';
             throw new Error(errorMessage);
@@ -73,6 +75,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const addTask = async (task) => {
         try {
+            setAuthToken();
             const response = await axiosInstance.post('/', task);
             setTasks(prevTasks => [...prevTasks, response.data] )
             setModifiedTask(response.data._id)
@@ -89,6 +92,7 @@ export const TaskContextProvider = ({ children }) => {
 
     const editTask = async (id, updatedTask) => {
         try {
+            setAuthToken();
             const response = await axiosInstance.put(`/${id}`, updatedTask);
             setTasks((prevTasks) =>
                 prevTasks.map((task) => (task._id === id ? response.data : task))
@@ -104,8 +108,27 @@ export const TaskContextProvider = ({ children }) => {
         }
     };
 
+    const filterTasks = async (selectedTags) => {
+        setAuthToken();
+        try {
+            const response = await axiosInstance.get('/');
+            const filteredTasks = response.data.filter(task => {
+                const taskTagIds = task.tags.map(tag => tag._id); 
+                return taskTagIds.some(tagId => selectedTags.includes(tagId)); 
+            });
+            
+            console.log(selectedTags)
+
+            selectedTags.length ?  setTasks(filteredTasks) : setTasks(response.data);
+    
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Tasks could not be filtered';
+            throw new Error(errorMessage);
+        }
+    };
+
     return (
-        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask, modifiedTask, axiosInstance}}>
+        <TaskContext.Provider value={{ tasks, setTasks, getTasks, toggleStatus, deleteTask, addTask, editTask, filterTasks, modifiedTask, axiosInstance}}>
             {children}
         </TaskContext.Provider>
     );

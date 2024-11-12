@@ -13,6 +13,8 @@ export const AuthContextProvider = ({ children }) => {
            
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user',JSON.stringify(response.data.user)); 
+
+        setAuthToken(); 
     }
 
     useEffect(() => {
@@ -38,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
     const register = async (name, email, password) => {
         try {
             const response = await axios.post('/register', { name, email, password });
-            persistUser(response)   
+            persistUser(response) 
         } catch (error) {
             const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
             throw new Error(errorMessage);

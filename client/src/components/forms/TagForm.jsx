@@ -1,11 +1,11 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { TagContext } from '../../contexts/TagContext'
 import { TaskContext } from "../../contexts/TaskContext"
 import CreateFormInput from "./forms-components/CreateFormInput"
 import { IoIosColorPalette } from "react-icons/io";
 
 
-function TagForm({closeForm, isEditing, hideTagActions, color, name, id}){
+function TagForm({closeForm, isEditing, hideTagActions, color, name, id, isTagFormOpen}){
 
     const { addTag, editTag } = useContext(TagContext)
     const { getTasks } = useContext(TaskContext)
@@ -17,6 +17,10 @@ function TagForm({closeForm, isEditing, hideTagActions, color, name, id}){
 
     const handleNameChange = (event) => {setFormName(n => event.target.value)}
     const handleColorChange = (event) => {setFormColor(c => event.target.value)}
+
+    useEffect(() => {
+        setError(null)
+    }, [isTagFormOpen])
 
 
     const handleUpdate = async(id, newTag) => {
@@ -59,7 +63,7 @@ function TagForm({closeForm, isEditing, hideTagActions, color, name, id}){
 
     return(
             <div className="flex items-start gap-2 w-full">
-                    <form onSubmit={handleSubmit} className="flex items-center gap-2 bg-gray-50 rounded-lg">
+                    <form onSubmit={handleSubmit} className="flex items-center gap-2 border-2 bg-gray-50 rounded-full">
                         <CreateFormInput onChange={handleNameChange} value={formName} type="text" name="name" placeholder="Add tag"/>
                         <IoIosColorPalette />
                         <input onChange={handleColorChange} value={formColor} type="color" name="color" placeholder="choose color"/>

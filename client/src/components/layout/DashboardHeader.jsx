@@ -14,7 +14,7 @@ function DashboardHeader(){
                 <h1 className="md:text-4xl text-2xl font-Montserrat font-bold text-BLACK pb-2">
                     Tasks
                 </h1>  
-                <p className="md:text-base text-sm font-Montserrat font-normal text-BLACK md:pb-8 pb-4">
+                <p className="md:text-base text-sm font-Montserrat font-normal text-BLACK  ">
                     {formattedDate}
                 </p>
             </div>

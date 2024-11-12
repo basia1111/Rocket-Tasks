@@ -7,7 +7,7 @@ function PublicRoute() {
   const location = useLocation();
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" replace reloadDocument/>;
   }
 
   return <Outlet />;

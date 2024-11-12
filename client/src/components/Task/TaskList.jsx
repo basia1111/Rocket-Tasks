@@ -13,7 +13,7 @@ function TaskList() {
 
     return (
          <>
-            <motion.div className="font-PTSans flex flex-col h-full overflow-y-scroll md:pb-6 pb-16" layout>
+            <motion.div className="font-PTSans flex flex-col h-full overflow-y-scroll md:pb-6 pb-16 pt-6" layout>
                 { tasks.length !== 0 ? 
                     <AnimatePresence mode="popLayout">
                         {tasks.map(task => (
