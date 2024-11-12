@@ -111,5 +111,5 @@ module.exports = {
     createTask,
     updateTask,
     deleteTask,
-    toggleTaskStatus
+    toggleTaskStatus,
 };

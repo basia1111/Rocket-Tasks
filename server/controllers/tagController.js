@@ -19,12 +19,10 @@ const getallTags = async(req, res) => {
 
 const createTag = async(req, res) => {
     const { name, color } = req.body
-    console.log(color)
     const tag = new Tag({name, color, user: req.user.id})
 
     try {
         const savedTag = await tag.save()
-        console.log(req.user.name)
         return res.status(201).json(savedTag)
 
     } catch(err) {

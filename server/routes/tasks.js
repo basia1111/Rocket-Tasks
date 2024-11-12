@@ -5,7 +5,8 @@ const {
     createTask,
     updateTask,
     deleteTask,
-    toggleTaskStatus
+    toggleTaskStatus,
+    filterTasks
 } = require('../controllers/taskControler');
 const validateId = require('../middleware/validateId');
 const validateTaskData = require('../middleware/validateTaskData');
