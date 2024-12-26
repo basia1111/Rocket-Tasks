@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const logout = async () => {
         setUser(null); 
-        localStorage.removeItem('token'); 
+        localStorage.removeItem('token');
     };
 
     return (

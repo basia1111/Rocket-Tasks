@@ -1,39 +1,43 @@
-import { useState } from "react"
+import { useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import { FcCancel } from "react-icons/fc";
+import { IoClose } from "react-icons/io5";
 import TagForm from "../forms/TagForm";
 
-function TagFormToggle(){
+function TagFormToggle() {
+  const [isTagFormOpen, setTagFormOpen] = useState(false);
 
-    const [isTagFormOpen, setTagFormOpen] = useState(false);
-    
-    const showTagForm = () => {
-        setTagFormOpen(open => true)
-    } 
-    const hideTagForm = () => {
-        setTagFormOpen(open => false)
-    } 
+  const showTagForm = () => setTagFormOpen(true);
+  const hideTagForm = () => setTagFormOpen(false);
 
-     return(
-            <div className="flex items-center gap-2 w-full py-4">
-                <div className={`${isTagFormOpen ? "visible" : "hidden"}`}>
-                    <TagForm  closeForm={hideTagForm} isEditing={false} isTagFormOpen={isTagFormOpen}/>
-                </div>
-                <button 
-                    className="flex items-center justify-center rounded-full 
-                            hover:scale-105 transition-transform duration-200 "
-                >
-                    {isTagFormOpen ? (
-                        <FcCancel onClick={hideTagForm} className="text-blue-gray size-6" />
-                    ) : (
-                        <div onClick={showTagForm} className=" bg-blue-gray rounded-full flex px-4 py-1 font-Montserrat text-sm items-center gap-2 text-white">
-                            <span> Add new tag</span>
-                            <IoAdd  className="text-white size-6" />
-                        </div>
-                    )}
-                </button>
-            </div>
-     )
+  return (
+    <div className="flex items-center gap-3 w-full py-4">
+      <div className={`${isTagFormOpen ? "block" : "hidden"} w-full`}>
+        <TagForm
+          closeForm={hideTagForm}
+          isEditing={false}
+          isTagFormOpen={isTagFormOpen}
+        />
+      </div>
+      <button className="relative group">
+        {isTagFormOpen ? (
+          <div
+            onClick={hideTagForm}
+            className="p-2 rounded-full bg-space-primary-opacity-20 transition-all duration-200"
+          >
+            <IoClose className="size-5 text-space-primary" />
+          </div>
+        ) : (
+          <div
+            onClick={showTagForm}
+            className="relative rounded-full flex px-4 py-2 items-center gap-2 bg-gradient-to-tr from-space-primary-light to-space-primary hover:bg-space-primary/15 border border-space-primary/30 hover:border-space-primary/50 text-space-primary-dark hover:text-space-primary  transition-all duration-300"
+          >
+            <span className="font-medium text-white text-sm">Add new tag</span>
+            <IoAdd className="size-5 text-white" />
+          </div>
+        )}
+      </button>
+    </div>
+  );
 }
 
-export default TagFormToggle
+export default TagFormToggle;

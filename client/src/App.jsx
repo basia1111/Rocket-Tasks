@@ -10,7 +10,7 @@ import PublicRoute from './components/PublicRoute';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {
-  const location = useLocation(); // Use location to track path changes
+  const location = useLocation(); 
 
   return (
     <AnimatePresence mode="wait" initial={false} >

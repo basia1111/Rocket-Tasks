@@ -1,35 +1,33 @@
 import { useState } from "react";
-import { IoLockClosed, IoEye, IoEyeOff } from "react-icons/io5";
+import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
+import { IoLockClosed } from "react-icons/io5";
 
-function PasswordInput({name, placeholder, value, onChange}){
+const PasswordInput = ({ ...props }) => {
+  const [showPassword, setShowPassword] = useState(false);
 
-    const[isVisible, setIsVisible] = useState(false)
-    const changeVisibility = (event) => {
-        setIsVisible(s => !s)
-    }
+  return (
+    <div className="relative group mb-4">
+      <div className="relative flex items-center">
+        <input
+          {...props}
+          type={showPassword ? "text" : "password"}
+          className="w-full py-3 px-10 rounded-lg bg-space-background/40 border border-space-primary-opacity-20 text-space-primary placeholder-space-primary-opacity-40 outline-none focus:border-space-primary-opacity-50 hover:border-space-primary-opacity-30 transition-all duration-300 backdrop-blur-sm"
+        />
+        <IoLockClosed className="absolute z-50 left-3 text-space-primary-opacity-40 w-5 h-5 group-hover:text-space-primary transition-colors duration-300" />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 text-space-primary-opacity-40 hover:text-space-primary transition-colors duration-300 focus:outline-none"
+        >
+          {showPassword ? (
+            <IoEyeSharp className="w-5 h-5" />
+          ) : (
+            <IoEyeOffSharp className="w-5 h-5" />
+          )}
+        </button>
+      </div>
+    </div>
+  );
+};
 
-    return(
-        <div className="relative">
-            <IoLockClosed className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input 
-                type= {isVisible ? "text": "password" }
-                name={name} id={name} value={value} 
-                onChange={onChange}
-                placeholder={placeholder}
-                autoComplete="current-password"
-                className="w-full py-4 pl-10 pr-4 border-b-[1px] border-gray-300 bg-transparent focus:outline-none focus:border-green-500 transition-all duration-200 rounded-none"
-            />
-
-            {isVisible ? (
-                <IoEye  className=" text-black absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={changeVisibility} />
-            ) : (
-                <IoEyeOff className="text-black absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={changeVisibility} />
-            )}
-
-
-        </div>
-
-    )
-}
-
-export default PasswordInput
+export default PasswordInput;

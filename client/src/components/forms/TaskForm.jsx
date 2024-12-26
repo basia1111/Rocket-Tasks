@@ -1,113 +1,202 @@
 import { useContext, useState } from "react";
-import { TaskContext } from '../../contexts/TaskContext';
-import { TagContext } from '../../contexts/TagContext';
-import CreateFormInput from "./forms-components/CreateFormInput";
-import SubmitButton from "./forms-components/SubmitButton";
+import { TaskContext } from "../../contexts/TaskContext";
+import { TagContext } from "../../contexts/TagContext";
 
+function TaskForm({
+  closeForm,
+  isEditing,
+  title,
+  dueDate,
+  id,
+  currentTags,
+  closeActions,
+}) {
+  const { addTask, editTask } = useContext(TaskContext);
+  const { tags } = useContext(TagContext);
 
-function TaskForm({ closeForm, isEditing, title, dueDate, id, currentTags, closeActions}) {
-    
-    const { addTask, editTask } = useContext(TaskContext);
-    const [formTitle, setFormTitle] = useState(isEditing ? title : '');
-    const [formDate, setFormDate] = useState(isEditing && dueDate ? new Date(dueDate).toISOString().split("T")[0] : '');
-    const [error, setError] = useState(null)
+  const [formTitle, setFormTitle] = useState(isEditing ? title : "");
+  const [formDate, setFormDate] = useState(
+    isEditing && dueDate ? new Date(dueDate).toISOString().split("T")[0] : ""
+  );
+  const [selectedTags, setSelectedTags] = useState(
+    isEditing && tags ? currentTags.map((t) => t._id) : []
+  );
+  const [error, setError] = useState(null);
 
-    const { tags } = useContext(TagContext);
-    const [selectedTags, setSelectedTags] = useState(isEditing && tags ? currentTags.map( t => t._id) : []);
+  const handleTitleChange = (event) => setFormTitle(event.target.value);
+  const handleDateChange = (event) => setFormDate(event.target.value);
 
-    const handleTitleChange = (event) => setFormTitle(event.target.value);
-    const handleDateChange = (event) => setFormDate(event.target.value);
+  const handleTagChange = (tagId) => {
+    setSelectedTags((prevTags) =>
+      prevTags.includes(tagId)
+        ? prevTags.filter((t) => t !== tagId)
+        : [...prevTags, tagId]
+    );
+  };
 
-    const handleTagChange = async(event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(null);
 
-        let tag = event.target.value
-
-        if (selectedTags.includes(tag)){
-            setSelectedTags(prevTags => prevTags.filter( t => (
-                t !== tag
-            )))
-        } else{
-            setSelectedTags(prevTags => [...prevTags, tag])
-        }
-    }
-
-    const handleUpdate = async(id, newTask) => {
-        setError(null);
-        try {
-            await editTask(id, newTask);
-            closeForm();
-        } catch(error) {
-            setError(error.message);
-        }
-    }
-
-    const handleCreate = async(newTask) => {
-        setError(null);
-        try {
-            await addTask(newTask);
-            closeForm()
-            setFormTitle(t => "")
-            setFormDate( d => "")
-            setSelectedTags(t => [])
-        } catch (error) {
-            setError(error.message);
-        }
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        const newTask = { 
-            title: formTitle, 
-            dueDate: formDate, 
-            tags: selectedTags
-        };
- 
-        if (isEditing && id) {
-            handleUpdate(id, newTask);
-            closeActions()
-        } else {
-            handleCreate(newTask); 
-        }
+    const newTask = {
+      title: formTitle,
+      dueDate: formDate,
+      tags: selectedTags,
     };
 
+    try {
+      if (isEditing && id) {
+        await editTask(id, newTask);
+        closeActions?.();
+      } else {
+        await addTask(newTask);
+        setFormTitle("");
+        setFormDate("");
+        setSelectedTags([]);
+      }
+      closeForm?.();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const TagItem = ({ tag, isSelected, onClick }) => (
+    <button
+      type="button"
+      onClick={onClick}
+      className="px-3 py-1 rounded-full text-sm transition-all duration-200"
+      style={{
+        backgroundColor: isSelected ? `${tag.color}20` : "white",
+        border: `1px solid ${tag.color}40`,
+        color: tag.color,
+      }}
+    >
+      {tag.name}
+    </button>
+  );
+
+  const inputStyle =
+    "w-full px-4 py-2 bg-white rounded-lg font-Montserrat border border-gray-200 focus:border-space-primary focus:outline-none focus:ring-1 focus:ring-space-primary/20 placeholder-gray-400 transition-all duration-200";
+  const dateInputStyle =
+    "w-full px-4 py-2 bg-white rounded-lg  font-Montserrat border border-gray-200 focus:border-space-primary focus:outline-none focus:ring-1 focus:ring-space-primary/20 text-gray-600 transition-all duration-200";
+  const buttonStyle =
+    "px-4 py-2 rounded-full font-Montserrat transition-all duration-200 text-sm font-medium";
+
+  if (isEditing) {
     return (
-        <form onSubmit={handleSubmit} className={`flex font-Montserrat text-navy w-full  gap-4 ${isEditing ? "md:flex-row flex-col md:items-center items-start" : "flex-col"}`}> 
-         
-            <CreateFormInput value={formTitle} type="text" name="title" onChange={handleTitleChange} placeholder="Enter task title..."/>
-            <CreateFormInput value={formDate} type="date" name="dueDate" onChange={handleDateChange} />
+      <div className="w-full bg-white rounded-xl font-Montserrat">
+        <form onSubmit={handleSubmit}>
+          <div className="flex items-center gap-3">
+            <input
+              value={formTitle}
+              type="text"
+              name="title"
+              onChange={handleTitleChange}
+              placeholder="Task title"
+              className={inputStyle}
+            />
 
-            <div className="flex gap-2 items-center flex-wrap" >
-                {tags.map(tag => (
-                    <div key={tag._id} >
-                        <label htmlFor={tag._id}>
-                            <div 
-                                className={`${selectedTags.includes(tag._id) ? "shadow-custom bg-gray-50" : "shadow-md"} flex w-auto gap-1 items-center rounded-full border-2 px-2 font-Montserrat font-normal text-sm `}
-                                style={{ borderColor: tag.color }}
-                            >
-                                <div>{tag.name}</div>
-                            </div>
-                        </label>
-                        <input onChange={handleTagChange} type="checkbox"  id={tag._id} name={tag._id} value={tag._id} className="hidden"/>
-                    </div>
-                ))}
+            <input
+              value={formDate}
+              type="date"
+              name="dueDate"
+              onChange={handleDateChange}
+              className={dateInputStyle}
+            />
+
+            <div className="flex gap-2">
+              {tags.map((tag) => (
+                <TagItem
+                  key={tag._id}
+                  tag={tag}
+                  isSelected={selectedTags.includes(tag._id)}
+                  onClick={() => handleTagChange(tag._id)}
+                />
+              ))}
             </div>
-            
-            
-            {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 
-            {isEditing ?
-            <div className="min-h-full flex items-center py-2">
-                <button type="submit" className="h-full text-white py-1 px-2 bg-blue-gray rounded-full"> Save </button>
+            <div className="flex gap-2 ml-auto">
+              <button
+                type="button"
+                onClick={closeForm}
+                className={`${buttonStyle} text-gray-600 hover:bg-gray-50`}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className={`${buttonStyle} bg-space-primary text-white  hover:bg-primary-dark`}
+              >
+                Save
+              </button>
             </div>
-                
-            :
-                <SubmitButton content="Create task" />
-            }
-            
-
+          </div>
         </form>
+      </div>
     );
+  }
+
+  return (
+    <div className="w-full bg-white rounded-xl font-Montserrat">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-4">
+          <div>
+            <input
+              value={formTitle}
+              type="text"
+              name="title"
+              onChange={handleTitleChange}
+              placeholder="What needs to be done?"
+              className={inputStyle}
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <div className="w-1/3">
+              <input
+                value={formDate}
+                type="date"
+                name="dueDate"
+                onChange={handleDateChange}
+                className={dateInputStyle}
+              />
+            </div>
+
+            <div className="flex-1">
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <TagItem
+                    key={tag._id}
+                    tag={tag}
+                    isSelected={selectedTags.includes(tag._id)}
+                    onClick={() => handleTagChange(tag._id)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+
+        <div className="flex justify-end gap-2 pt-2">
+          <button
+            type="button"
+            onClick={closeForm}
+            className={`${buttonStyle} text-gray-600 hover:bg-gray-50 `}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className={`${buttonStyle} bg-space-primary text-white hover:bg-space-primary-dark`}
+          >
+            Create Task
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
 export default TaskForm;

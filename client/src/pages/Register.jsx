@@ -1,26 +1,94 @@
-import RegisterForm from "../components/forms/RegisterForm"
-import Lottie from "lottie-react";
-import animation from '../../public/animations/Animation-spacecraft.json'
+import React from "react";
+import RegisterForm from "../components/forms/RegisterForm";
+import LoginDecorativeSection from "../components/LoginDecovariveSection";
 
-function Register(){
+const StarIcon = ({ size = "small" }) => {
+  const sizeClasses = {
+    small: "w-4 h-4",
+    medium: "w-5 h-5",
+    large: "w-6 h-6",
+  };
 
-return(
-    <div className="min-w-[320px] max-w-[1320px] md:h-full h-auto w-full p-4 flex sm:flex-row flex-col gap-10 items-center justify-around bg-blue-gray rounded-3xl" >
-       
-       <div className="w-1/2 h-full sm:flex hidden bg-[url('/images/bg-reg.png')] bg-contain bg-no-repeat bg-center">
-            <Lottie speed={0.1} animationData={animation}/>
+  return (
+    <svg className={sizeClasses[size]} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+    </svg>
+  );
+};
+
+function Register() {
+  return (
+    <div className="w-full h-full rounded-3xl bg-[#0B0F1A]">
+      <div className="h-full rounded-3xl relative p-4">
+        {/* Stars background */}
+        <div className="absolute inset-0">
+          {/* Large stars */}
+          <div className="absolute top-10 left-10 text-space-primary-opacity-20 animate-pulse duration-[4s]">
+            <StarIcon size="large" />
+          </div>
+          <div className="absolute top-20 right-20 text-space-primary-opacity-30 animate-pulse duration-[3s]">
+            <StarIcon size="medium" />
+          </div>
+          <div className="absolute bottom-32 left-1/4 text-space-primary-opacity-20 animate-pulse duration-[5s]">
+            <StarIcon size="small" />
+          </div>
+          {/* Small stars */}
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute bg-space-primary rounded-full animate-twinkle"
+              style={{
+                width: Math.random() * 2 + 1 + "px",
+                height: Math.random() * 2 + 1 + "px",
+                top: Math.random() * 100 + "%",
+                left: Math.random() * 100 + "%",
+                opacity: Math.random() * 0.5 + 0.25,
+                animationDelay: Math.random() * 5 + "s",
+                animationDuration: Math.random() * 3 + 2 + "s",
+              }}
+            />
+          ))}
         </div>
-        <div className=" sm:w-auto w-full flex items-center justify-center bg-white sm:p-10 p-8 rounded-3xl shadow-lg">
-            <div className=" flex flex-col items-center justify-center ">
-                <h1 className="w-full text-left font-Montserrat font-bold sm:text-4xl text-2xl sm:pb-4 pb-2">🚀 Launch Your Journey</h1>
-                <p className="max-w-sm sw-full text-left font-Montserrat font-normal text-l pb-8" >Sign up to embark on a stellar journey of task management and stay on top of your galaxy of goals!</p>
-                <Lottie  speed={0.1} className="sm:hidden flex h-32" animationData={animation}/>
-                <RegisterForm />
+
+        <div className="w-full h-full flex sm:flex-row flex-col items-center justify-center relative">
+          <div className="content-wrapper w-full max-w-6xl flex items-center justify-center gap-16">
+            {/* Decorative Section */}
+            <div className="w-[500px] h-[500px] sm:flex hidden items-center justify-center relative">
+              <div className="w-full h-full absolute inset-0">
+                <LoginDecorativeSection />
+                <img
+                  src="/images/register-image.png"
+                  className="height-auto w-full"
+                />
+              </div>
             </div>
-        </div>
-    </div>
-)
 
+            {/* Form Container */}
+            <div className="sm:w-[540px] w-full relative">
+              {/* Outer glow effect */}
+              <div className="absolute -inset-2 bg-space-primary-opacity-20/10 rounded-3xl blur-xl" />
+
+              {/* Main form container */}
+              <div className="relative backdrop-blur-xl bg-[#1A2234]/40 p-10 rounded-3xl border border-[#9BB5D8]/10">
+                <div className="flex flex-col">
+                  <h1 className="font-Montserrat font-bold text-[40px] leading-tight mb-3 text-space-primary">
+                    Launch Your Journey!
+                  </h1>
+
+                  <p className="font-Montserrat text-space-primary/70 text-lg mb-8">
+                    Sign up to embark on a stellar journey of task management
+                    and stay on top of your galaxy of goals!
+                  </p>
+
+                  <RegisterForm />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Register
+export default Register;
