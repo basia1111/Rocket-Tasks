@@ -36,11 +36,7 @@ function TagItem({ tag, isSelected, onTagSelect }) {
 
   return (
     <motion.div
-      onClick={(e) => {
-        if (!e.target.closest(".tag-actions")) {
-          onTagSelect(_id);
-        }
-      }}
+      onClick={(e) => !e.target.closest(".tag-actions") && onTagSelect(_id)}
       onMouseEnter={showTagActions}
       onMouseLeave={hideTagActions}
       initial={{ scale: 0, opacity: 0 }}
@@ -60,18 +56,12 @@ function TagItem({ tag, isSelected, onTagSelect }) {
         />
       ) : (
         <div
-          className={`tag-actions relative flex items-center bg-white border border-space-primary/60 transition-all duration-200 font-Montserrat text-sm rounded-full px-4 py-2
-
-            ${
-              isSelected
-                ? "shadow-[inset_0_0_12px_rgba(135,206,235,0.45)] outline-offset-1 outline-space-primary/60 outline"
-                : "shadow-[0_8px_16px_rgba(135,206,235,0.2),0_2px_8px_rgba(135,206,235,0.3),inset_0_0_8px_rgba(135,206,235,0.1)]"
-            }`}
+          className={`tag-actions relative flex items-center bg-white/90 border border-space-primary/60 transition-all duration-200 font-Montserrat text-xs md:text-sm rounded-full px-1 md:px-4 py-1 md:py-2 ${isSelected ? "shadow-[inset_0_0_12px_rgba(135,206,235,0.45)] outline-offset-1 outline-space-primary/60 outline" : "shadow-[0_8px_16px_rgba(135,206,235,0.2),0_2px_8px_rgba(135,206,235,0.3),inset_0_0_8px_rgba(135,206,235,0.1)]"}`}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 md:gap-3">
             <div className="relative">
               <div
-                className="w-3 h-3 rounded-full"
+                className="w-2 h-2 md:w-3 md:h-3 rounded-full"
                 style={{ backgroundColor: color }}
               />
             </div>
@@ -80,30 +70,24 @@ function TagItem({ tag, isSelected, onTagSelect }) {
             </span>
             <div
               onClick={handleActionClick}
-              className={`transition-all duration-200 ml-2
-                ${
-                  isTagActionsOpen
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 -translate-x-2 pointer-events-none"
-                }`}
+              className={`transition-all duration-200 ml-1 md:ml-2 ${isTagActionsOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 pointer-events-none"}`}
             >
               <Actions
                 setIsModalActive={setIsModalActive}
                 setIsEditing={setIsEditing}
-                iconSize="15"
+                iconSize="12"
                 color="rgba(30, 58, 110, 0.6)"
               />
             </div>
           </div>
         </div>
       )}
-
       <ConfirmDeleteModal
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
         handleDelete={handleDelete}
         id={_id}
-        message={"Are you sure you want to delete tag?"}
+        message="Are you sure you want to delete tag?"
       />
     </motion.div>
   );

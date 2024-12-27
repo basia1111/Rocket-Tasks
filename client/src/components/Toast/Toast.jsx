@@ -51,15 +51,6 @@ const Toast = ({ type, message, id }, ref) => {
             </div>
             <p className="mt-1 text-sm text-space-background/70">{message}</p>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 overflow-hidden rounded-b-lg">
-            <motion.div
-              initial={{ width: "100%" }}
-              animate={{ width: "0%" }}
-              transition={{ duration: 4, ease: "linear" }}
-              onAnimationComplete={() => closeToast(id)}
-              className={`h-full ${styles.progressClass}`}
-            />
-          </div>
         </div>
         <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300">
           <div className="absolute -inset-1 bg-gradient-to-r from-space-primary/20 to-transparent rounded-lg blur-md" />

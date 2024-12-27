@@ -6,7 +6,7 @@ function Actions({ setIsModalActive, setIsEditing, iconSize = 14, color }) {
 
   return (
     <div className="font-Montserrat text-sm">
-      <div className="flex items-center gap-1">
+      <div className="flex items-center md:gap-1">
         <button
           onClick={() => setIsEditing(true)}
           onMouseEnter={() => setHoveredAction("edit")}

@@ -1,52 +1,48 @@
 import React from "react";
-import TaskList from "../components/Task/TaskList";
-import TagList from "../components/Tag/TagList";
-import DashboardHeader from "../components/layout/DashboardHeader";
+import DashboardHeader from "../components/dashboard/DashboardHeader";
 import { TaskContextProvider } from "../contexts/TaskContext";
-import TaskFormToggle from "../components/Task/TaskFormToggle";
-import TagFormToggle from "../components/Tag/TagFormToggle";
+import DashboardTags from "../components/dashboard/DashboardTags";
+import DashboardTasks from "../components/dashboard/DashboardTasks";
+import { FaStar } from "react-icons/fa";
 
 const Dashboard = () => {
+  const stars = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    top: `${Math.random() * 100}%`,
+    left: `${Math.random() * 100}%`,
+    size: Math.random() * 0.3 + 0.2,
+    delay: Math.random() * 3,
+  }));
+
   return (
     <TaskContextProvider>
-      <div className="min-w-[320px] max-w-[1320px] w-full p-4 font-Montserrat">
-        <DashboardHeader />
-        {/* Mission Tags Section */}
-        <div className="bg-white/85 backdrop-blur-md rounded-xl p-8 mb-6 border border-space-primary/30 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold text-[#1E3A6E] mb-1">
-                Mission Tags
-              </h2>
-              <p className="text-sm text-gray-400 font-medium">
-                Organize your tasks with custom tags
-              </p>
-            </div>
-            <TagFormToggle />
+      <div className="w-full min-h-screen flex flex-col  md:p-6">
+        <div className="flex-1 flex flex-col rounded-xl md:rounded-3xl items-center relative md:p-6 p-3 overflow-hidden bg-gradient-to-b from-space-background to-[#5e70a2]">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {stars.map((star) => (
+              <div
+                key={star.id}
+                className="absolute"
+                style={{ top: star.top, left: star.left }}
+              >
+                <FaStar
+                  className="text-space-primary opacity-30 animate-pulse"
+                  style={{
+                    width: `${star.size}rem`,
+                    height: `${star.size}rem`,
+                    animationDelay: `${star.delay}s`,
+                  }}
+                />
+              </div>
+            ))}
           </div>
-          <div className="flex gap-4 flex-wrap">
-            <TagList />
+          <div className="absolute top-0 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-space-primary/5 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-40 md:w-80 h-40 md:h-80 bg-space-primary/10 rounded-full blur-2xl"></div>
+          <div className="w-full max-w-[1320px] mx-auto space-y-4 relative z-10 font-Montserrat">
+            <DashboardHeader />
+            <DashboardTags />
+            <DashboardTasks />
           </div>
-        </div>
-
-        {/* Active Missions Section */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-8 mb-6 border border-space-primary/30 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold text-[#1E3A6E] mb-1">
-                Active Missions
-              </h2>
-              <p className="text-sm text-gray-400 font-medium">
-                Track your ongoing tasks
-              </p>
-            </div>
-          </div>
-          <TaskList />
-        </div>
-
-        {/* Task Toggle Button */}
-        <div className="fixed bottom-8 right-8">
-          <TaskFormToggle />
         </div>
       </div>
     </TaskContextProvider>

@@ -35,7 +35,7 @@ function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full flex flex-col gap-5 font-Montserrat max-w-sm"
+      className="w-full flex flex-col md:gap-5 gap-2 max-w-sm"
     >
       <Input
         value={formData.email}

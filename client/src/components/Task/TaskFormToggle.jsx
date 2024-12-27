@@ -1,70 +1,49 @@
 import { useState } from "react";
-import { IoAdd, IoCloseOutline } from "react-icons/io5";
+import { IoAdd, IoClose } from "react-icons/io5";
 import TaskForm from "../forms/TaskForm";
-import { motion, AnimatePresence } from "framer-motion";
 
 function TaskFormToggle() {
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [isTaskFormOpen, setTaskFormOpen] = useState(false);
 
-  const showTaskModal = () => setIsFormModalOpen(true);
-  const hideTaskModal = () => setIsFormModalOpen(false);
+  const showTaskForm = () => setTaskFormOpen(true);
+  const hideTaskForm = () => setTaskFormOpen(false);
 
   return (
-    <>
-      <button
-        onClick={showTaskModal}
-        className={`flex items-center justify-center ${isFormModalOpen ? "hidden" : ""}  w-14 h-14 rounded-full bg-gradient-to-br  from-space-primary-light to-space-primary hover:scale-105 active:scale-95 transition-all duration-200 fixed md:absolute right-6 bottom-6 shadow-sm`}
-      >
-        <IoAdd className="text-white size-8" />
-      </button>
-
-      <AnimatePresence mode="popLayout">
-        {isFormModalOpen && (
-          <motion.div
-            onClick={hideTaskModal}
-            className="flex items-center justify-center fixed inset-0  bg-space-background/5 backdrop-blur-sm  z-50 p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              type: "spring",
-              duration: 0.2,
-              stiffness: 200,
-              damping: 30,
-            }}
+    <div className="flex items-center gap-3 w-full py-4">
+      <div className={`${isTaskFormOpen ? "block" : "hidden"} w-full`}>
+        <TaskForm
+          closeForm={hideTaskForm}
+          isEditing={false}
+          isTaskFormOpen={isTaskFormOpen}
+        />
+      </div>
+      <button className="relative group">
+        {isTaskFormOpen ? null : (
+          <div
+            onClick={showTaskForm}
+            className="relative rounded-full flex px-4 py-2 items-center gap-2 
+            bg-space-primary/10 hover:bg-space-primary/20 backdrop-blur-sm
+            border border-space-primary/20 hover:border-space-primary/40
+            transition-all duration-200 group overflow-hidden active:scale-95"
           >
-            <motion.div
-              onClick={(e) => e.stopPropagation()}
-              className="sm:max-w-[500px] w-full bg-white md:p-10 p-6  rounded-3xl border border-space-primary-opacity-20  shadow-xl"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              transition={{
-                type: "spring",
-                duration: 0.2,
-                stiffness: 280,
-                damping: 20,
-              }}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-bold  text-xl text-space-background">
-                  Create Task
-                </h2>
-                <button
-                  onClick={hideTaskModal}
-                  className="text-space-background/60  hover:text-space-background transition-colors duration-200 p-2 rounded-full hover:bg-space-primary-opacity-20"
-                >
-                  <IoCloseOutline className="size-6" />
-                </button>
-              </div>
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-space-primary/0 via-space-primary/10 to-space-primary/0 
+            translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"
+            ></div>
 
-              {/* Form */}
-              <TaskForm closeForm={hideTaskModal} isEditing={false} />
-            </motion.div>
-          </motion.div>
+            <span className="font-medium text-space-primary text-sm relative z-10">
+              Add new task
+            </span>
+            <IoAdd className="w-5 h-5 text-space-primary relative z-10 group-hover:rotate-180 transition-transform duration-300" />
+
+            <div className="absolute top-1 right-1 w-1 h-1 bg-space-primary/20 rounded-full"></div>
+            <div className="absolute bottom-1 left-1 w-1 h-1 bg-space-primary/20 rounded-full"></div>
+
+            <div className="absolute bottom-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-space-primary/20 to-transparent"></div>
+          </div>
         )}
-      </AnimatePresence>
-    </>
+      </button>
+    </div>
   );
 }
 

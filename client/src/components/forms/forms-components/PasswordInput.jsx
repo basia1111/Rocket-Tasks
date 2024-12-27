@@ -6,7 +6,7 @@ const PasswordInput = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative group mb-4">
+    <div className="relative group md:mb-4">
       <div className="relative flex items-center">
         <input
           {...props}

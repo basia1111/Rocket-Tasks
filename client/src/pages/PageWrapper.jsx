@@ -14,7 +14,7 @@ function PageWrapper({ children }) {
       animate="animate"
       exit="exit"
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      className="w-full flex-1 flex flex-col relative overflow-x-hidden p-6"
+      className="w-full flex-1 flex flex-col relative overflow-x-hidden md:p-6"
     >
       {children}
     </motion.div>

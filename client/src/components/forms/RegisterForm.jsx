@@ -44,7 +44,7 @@ function RegisterForm() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="w-full flex flex-col font-Montserrat "
+        className="w-full flex flex-col font-Montserrat gap-2 "
       >
         <Input
           value={formData.name}
@@ -80,9 +80,12 @@ function RegisterForm() {
         <SubmitButton content="Register" />
 
         <div className="text-gray-400 flex items-center justify-center mt-4">
-          <p>
+          <p className="text-space-primary/60 text-center">
             Already have an account?
-            <Link to="/login" className="text-green">
+            <Link
+              to="/login"
+              className="text-space-primary hover:text-space-primary-dark relative inline-block"
+            >
               Login here
             </Link>
           </p>

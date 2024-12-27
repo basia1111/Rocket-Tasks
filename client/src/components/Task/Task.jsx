@@ -53,35 +53,40 @@ function Task({ task }, ref) {
     >
       <div className={`w-full ${status ? "opacity-90" : "opacity-100"}`}>
         <div
-          className={`bg-white rounded-xl p-4 border border-space-primary-opacity-40  shadow-sm transition-all duration-200 font-Montserrat hover:border-space-primary-opacity-40
-          ${status ? "bg-opacity-50" : ""}`}
+          className={` bg-white  backdrop-blur-sm rounded-xl p-4 border border-space-primary/20 transition-all duration-200 font-Montserrat 
+          relative
+          ${isEditing ? "bg-space-background-opacity-30" : "bg-white"}
+          ${status ? "bg-opacity-90" : ""}`}
         >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-space-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-space-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+
           {!isEditing ? (
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-4 relative">
               <div
                 className="flex-shrink-0 mt-1"
                 onClick={() => handleChangeStatus(_id)}
               >
                 {status ? (
-                  <IoCheckmarkCircleSharp className="w-6 h-6 text-space-primary cursor-pointer transition-all duration-200 hover:scale-110 hover:text-space-primary-light" />
+                  <IoCheckmarkCircleSharp className="w-6 h-6 text-space-primary cursor-pointer transition-all duration-200 hover:scale-110" />
                 ) : (
                   <div className="relative">
-                    <IoRadioButtonOffOutline className="w-6 h-6 text-space-primary-opacity-30 cursor-pointer transition-all duration-200 hover:text-space-primary-opacity-60" />
+                    <IoRadioButtonOffOutline className="w-6 h-6 text-space-primary/30 cursor-pointer transition-all duration-200 hover:text-space-primary/60" />
                   </div>
                 )}
               </div>
 
               <div className="flex-1 min-w-0 space-y-2">
                 <h3
-                  className={`text-base font-medium transition-all duration-200
-                  ${status ? "text-space-background-light/40 line-through" : "text-space-background-light"}`}
+                  className={` text-base font-medium transition-all duration-200
+                  ${status ? "text-space-background/90 line-through" : "text-space-background"}`}
                 >
                   {title}
                 </h3>
 
                 <div className="flex flex-wrap items-center gap-2">
                   {dueDate && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-space-primary-opacity-20 text-space-background-light/60 rounded-full text-xs font-medium">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-space-primary/10 text-space-primary rounded-full text-xs font-medium backdrop-blur-sm">
                       <IoCalendarOutline className="w-3.5 h-3.5" />
                       {new Date(dueDate).toLocaleDateString("en-US", {
                         month: "short",
@@ -93,9 +98,9 @@ function Task({ task }, ref) {
                   {tags.map((tag) => (
                     <span
                       key={tag._id}
-                      className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full"
+                      className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full backdrop-blur-sm"
                       style={{
-                        backgroundColor: `${tag.color}15`,
+                        backgroundColor: `${tag.color}20`,
                         color: tag.color,
                       }}
                     >
