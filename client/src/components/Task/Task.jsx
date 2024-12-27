@@ -8,7 +8,7 @@ import {
 import TaskForm from "../forms/TaskForm";
 import Actions from "../layout/Actions";
 import { motion, AnimatePresence } from "framer-motion";
-import ConfirmDeleteModal from "../layout/ConfirmDeleteModal";
+import DeleteModal from "../layout/DeleteModal";
 
 const Task = forwardRef(({ task }, ref) => {
   const { toggleStatus, deleteTask } = useContext(TaskContext);
@@ -156,7 +156,7 @@ const Task = forwardRef(({ task }, ref) => {
         </div>
       </div>
 
-      <ConfirmDeleteModal
+      <DeleteModal
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
         handleDelete={handleDelete}

@@ -3,8 +3,8 @@ import { TagContext } from "../../contexts/TagContext";
 import { TaskContext } from "../../contexts/TaskContext";
 import Actions from "../layout/Actions";
 import TagForm from "../forms/TagForm";
-import ConfirmDeleteModal from "../layout/ConfirmDeleteModal";
 import { motion } from "framer-motion";
+import DeleteModal from "../layout/DeleteModal";
 
 function TagItem({ tag, isSelected, onTagSelect }) {
   const { name, color, _id } = tag;
@@ -79,7 +79,7 @@ function TagItem({ tag, isSelected, onTagSelect }) {
           </div>
         </div>
       )}
-      <ConfirmDeleteModal
+      <DeleteModal
         isModalActive={isModalActive}
         setIsModalActive={setIsModalActive}
         handleDelete={handleDelete}

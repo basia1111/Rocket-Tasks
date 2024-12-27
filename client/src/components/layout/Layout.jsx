@@ -7,7 +7,7 @@ function Layout() {
 
   return (
     <div
-      className={`w-full flex flex-col min-h-screen pb-4 px-2 items-center ${
+      className={`w-full flex flex-col min-h-screen pb-4 px-2 items-center relative ${
         location.pathname == "/" ? "bg-[#f5f6f9]" : "bg-gray-50"
       }`}
     >

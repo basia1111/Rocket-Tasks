@@ -6,9 +6,9 @@ const TagButton = ({ name, color, isSelected, onClick }) => (
     onClick={onClick}
     className="px-3 py-1 rounded-full text-sm"
     style={{
-      backgroundColor: isSelected ? `#0A112815` : "white",
-      borderColor: `${color}30`,
-      borderWidth: 1,
+      backgroundColor: isSelected ? "white" : "#0A112815",
+      borderColor: `${color}60`,
+      borderWidth: isSelected ? 2 : 1,
       color,
     }}
   >
