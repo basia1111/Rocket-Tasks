@@ -12,12 +12,8 @@ function TagItem({ tag, isSelected, onTagSelect }) {
   const { getTasks } = useContext(TaskContext);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [isTagActionsOpen, setIsTagActionsOpen] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const [error, setError] = useState(null);
-
-  const showTagActions = () => setIsTagActionsOpen(true);
-  const hideTagActions = () => setIsTagActionsOpen(false);
 
   const handleDelete = async (id) => {
     setError(null);
@@ -37,8 +33,6 @@ function TagItem({ tag, isSelected, onTagSelect }) {
   return (
     <motion.div
       onClick={(e) => !e.target.closest(".tag-actions") && onTagSelect(_id)}
-      onMouseEnter={showTagActions}
-      onMouseLeave={hideTagActions}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
@@ -47,7 +41,6 @@ function TagItem({ tag, isSelected, onTagSelect }) {
     >
       {isEditing ? (
         <TagForm
-          hideTagActions={hideTagActions}
           closeForm={() => setIsEditing(false)}
           isEditing={isEditing}
           color={color}
@@ -56,7 +49,11 @@ function TagItem({ tag, isSelected, onTagSelect }) {
         />
       ) : (
         <div
-          className={`tag-actions relative flex items-center bg-white/90 border border-space-primary/60 transition-all duration-200 font-Montserrat text-xs md:text-sm rounded-full px-1 md:px-4 py-1 md:py-2 ${isSelected ? "shadow-[inset_0_0_12px_rgba(135,206,235,0.45)] outline-offset-1 outline-space-primary/60 outline" : "shadow-[0_8px_16px_rgba(135,206,235,0.2),0_2px_8px_rgba(135,206,235,0.3),inset_0_0_8px_rgba(135,206,235,0.1)]"}`}
+          className={`tag-actions relative flex items-center bg-white/90 border border-space-primary/60 transition-all duration-200 font-Montserrat text-xs md:text-sm rounded-full px-1 md:px-4 py-1 md:py-2 ${
+            isSelected
+              ? "shadow-[inset_0_0_12px_rgba(135,206,235,0.45)] outline-offset-1 outline-space-primary/60 outline"
+              : "shadow-[0_8px_16px_rgba(135,206,235,0.2),0_2px_8px_rgba(135,206,235,0.3),inset_0_0_8px_rgba(135,206,235,0.1)]"
+          }`}
         >
           <div className="flex items-center gap-1 md:gap-3">
             <div className="relative">
@@ -70,7 +67,7 @@ function TagItem({ tag, isSelected, onTagSelect }) {
             </span>
             <div
               onClick={handleActionClick}
-              className={`transition-all duration-200 ml-1 md:ml-2 ${isTagActionsOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 pointer-events-none"}`}
+              className="transition-all duration-200 ml-1 md:ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
             >
               <Actions
                 setIsModalActive={setIsModalActive}

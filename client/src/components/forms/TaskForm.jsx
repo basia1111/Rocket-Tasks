@@ -73,21 +73,20 @@ function TaskForm({
         <div
           className={`flex gap-2 ${isEditing ? "md:flex-row flex-col" : "flex-col"}`}
         >
-          <Input
+          <input
             type="text"
             value={formTitle}
             onChange={(e) => setFormTitle(e.target.value)}
             placeholder={isEditing ? "Task title" : "What needs to be done?"}
-            className="px-3 md:px-4 py-1.5 md:py-2 bg-white rounded-lg border border-gray-200 focus:border-space-primary focus:outline-none placeholder-gray-400 transition-all duration-200 text-sm md:text-base"
+            className={`flex-1 rounded-lg px-3 md:px-4 py-2  text-space-primary placeholder-space-primary-opacity-40 ${isEditing ? "bg-white" : "bg-space-background-opacity-30"} border border-space-primary/20 focus:border-space-primary/40 focus:outline-none placeholder-gray-400`}
           />
-          <Input
+          <input
             type="date"
             value={formDate}
             onChange={(e) => setFormDate(e.target.value)}
-            className="px-3 md:px-4 py-1.5 md:py-2 bg-white rounded-lg border border-gray-200 focus:border-space-primary focus:outline-none focus:ring-1 focus:ring-space-primary/20 placeholder-gray-400 text-sm md:text-base"
+            className={`flex-1 rounded-lg px-3 md:px-4 py-2  text-space-primary placeholder-space-primary-opacity-40 ${isEditing ? "bg-white" : "bg-space-background-opacity-30"} border border-space-primary/20 focus:border-space-primary/40 focus:outline-none placeholder-gray-400`}
           />
         </div>
-
         <div className="flex flex-wrap gap-1.5 md:gap-2">
           {tags.map((tag) => (
             <TagButton
@@ -99,11 +98,9 @@ function TaskForm({
             />
           ))}
         </div>
-
         {error && (
           <div className="text-red-500 text-xs md:text-sm">{error}</div>
         )}
-
         <div className="flex justify-end gap-2 pt-2 md:pt-3">
           <button
             type="button"

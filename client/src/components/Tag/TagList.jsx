@@ -28,7 +28,7 @@ function Taglist() {
 
   return (
     <div className=" w-full flex-wrap flex items-center gap-2 md:gap-4">
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         {tags.map((tag, index) => (
           <div key={tag._id}>
             <label
