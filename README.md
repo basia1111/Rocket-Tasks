@@ -6,7 +6,7 @@
 Rocket Tasks is a MERN (MongoDB, Express, React, Node.js) application designed to help users manage their tasks efficiently. This app serves as your mission control, allowing you to create, update, and delete tasks while ensuring secure user authentication. Stay on course in your journey through the cosmos of productivity!
 
 <img width="800" alt="Zrzut ekranu 2024-12-23 o 14 58 31" src="https://github.com/user-attachments/assets/3b2a40ac-6126-4b1d-9aff-cfbb2176a44b" />
-<img width="8s00" alt="Zrzut ekranu 2025-01-1 o 18 09 38" src="https://github.com/user-attachments/assets/82dcf02d-d5d8-44d2-92c2-a94adebd0526" />
+<img width="800" alt="Zrzut ekranu 2025-01-1 o 18 09 38" src="https://github.com/user-attachments/assets/82dcf02d-d5d8-44d2-92c2-a94adebd0526" />
 
 
 ## Features
