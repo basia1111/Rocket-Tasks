@@ -5,27 +5,20 @@
 
 Rocket Tasks is a MERN (MongoDB, Express, React, Node.js) application designed to help users manage their tasks efficiently. This app serves as your mission control, allowing you to create, update, and delete tasks while ensuring secure user authentication. Stay on course in your journey through the cosmos of productivity!
 
-<img width="30%" alt="Zrzut ekranu 2024-11-2 o 12 32 38" src="https://github.com/user-attachments/assets/0656757c-5d72-43dd-9f37-95799b1df124">
-<img width="30%" alt="Zrzut ekranu 2024-11-2 o 12 32 51" src="https://github.com/user-attachments/assets/878843a8-4a2c-4404-93a8-15959d604d03">
-<img width="30%" alt="Zrzut ekranu 2024-11-2 o 12 34 12" src="https://github.com/user-attachments/assets/6350acc3-e067-45a4-8556-da54351de438">
+<img width="800" alt="Zrzut ekranu 2024-12-23 o 14 58 31" src="https://github.com/user-attachments/assets/3b2a40ac-6126-4b1d-9aff-cfbb2176a44b" />
+<img width="8s00" alt="Zrzut ekranu 2025-01-1 o 18 09 38" src="https://github.com/user-attachments/assets/82dcf02d-d5d8-44d2-92c2-a94adebd0526" />
 
-<img width="25%" alt="Zrzut ekranu 2024-11-2 o 12 35 35" src="https://github.com/user-attachments/assets/a4bc3738-e075-4d59-9150-51d3540428db">
-<img width="25%" alt="Zrzut ekranu 2024-11-2 o 13 12 12" src="https://github.com/user-attachments/assets/67dcbddd-4581-4b69-ae3f-37c30a247ca4">
 
 ## Features
 
 ### Current Features
 - **User Authentication**: Securely register, log in, and log out.
 - **Task Management**: Create, edit, delete and mark tasks with ease,
-- **Responsive Design**: Built with Tailwind CSS for a sleek, modern, and responsive UI.
-- **Animations**: Smooth transitions and effects powered by Framer Motion to make navigating your tasks feel seamless.
-- **Lottie Animations**: Engaging space-themed animations throughout the app for a lively user experience.
-- **React Router**: Client-side routing to provide smooth navigation.
-
-### Planned Features
 - **Tag Management**: Organize tasks with customizable tags for better categorization and retrieval.
 - **Toast Notifications**: Inform users of important events (such as task creation, updates, or errors) with stylish toast notifications.
-- **Password Recovery**: Retrieve lost passwords with an easy-to-use password recovery feature to ensure you can always access your mission control.
+- **Responsive Design**: Built with Tailwind CSS for a sleek, modern, and responsive UI.
+- **Animations**: Smooth transitions and effects powered by Framer Motion to make navigating your tasks feel seamless.
+- **React Router**: Client-side routing to provide smooth navigation.
 
 ## Technologies Used
 
@@ -34,7 +27,6 @@ Rocket Tasks is a MERN (MongoDB, Express, React, Node.js) application designed t
   - **React Router**: For handling routing within the app.
   - **Tailwind CSS**: Utility-first CSS framework for styling.
   - **Framer Motion**: For animations and transitions.
-  - **Lottie Files**: For high-quality animations.
 
 - **Backend**:
   - **Node.js**: JavaScript runtime for building the server.
